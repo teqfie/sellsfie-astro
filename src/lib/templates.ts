@@ -13,6 +13,28 @@ export interface TemplatesResult {
 
 const API_BASE = 'https://app.sellsfie.com/api';
 
+/**
+ * Template titles and descriptions come from the Sellsfie admin, where some
+ * still contain em dashes. Copy on this site does not use them, so incoming
+ * text is normalised: a colon reads best between a name and its descriptor,
+ * a comma inside running prose. The durable fix is renaming the template.
+ */
+function stripEmDash(value: string | undefined | null, separator: string): string | undefined {
+  if (!value) return value ?? undefined;
+  return value
+    .replace(/\s*\u2014\s*/g, separator)
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function normalise(template: LandingTemplate): LandingTemplate {
+  return {
+    ...template,
+    title: stripEmDash(template.title, ': ') ?? template.title,
+    short_description: stripEmDash(template.short_description, ', '),
+  };
+}
+
 const EMPTY: TemplatesResult = {
   templates: [],
   meta: { lastPage: 1, from: 0, to: 0, total: 0 },
@@ -34,7 +56,7 @@ export async function fetchTemplates(page = 1, perPage = 12): Promise<TemplatesR
     const body = await response.json();
     const data = body?.data;
     return {
-      templates: data?.data ?? [],
+      templates: (data?.data ?? []).map(normalise),
       meta: {
         lastPage: data?.last_page ?? 1,
         from: data?.from ?? 0,

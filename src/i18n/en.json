@@ -91,7 +91,7 @@
   },
   "bento": {
     "eyebrow": "Core features",
-    "title": "Everything that moves your business — in one place.",
+    "title": "Everything that moves your business, in one place.",
     "sub": "Stitched together for the way Bangladeshi commerce actually runs. No bolt-ons. No CSV gymnastics.",
     "logistics": {
       "eyebrow": "Logistics",
@@ -154,7 +154,7 @@
   "features": {
     "eyebrow": "Inside the Business OS",
     "title": "44 features. Six workspaces. One login.",
-    "sub": "Everything a Bangladeshi merchant needs to run, count, and grow — already built.",
+    "sub": "Everything a Bangladeshi merchant needs to run, count, and grow. Already built.",
     "cta": "Let's start now",
     "ctaHint": "screens · sample data ready",
     "hint": "Permission-aware · search · toast feedback on every mutation",
@@ -177,7 +177,7 @@
           },
           {
             "h": "12-month Revenue stack",
-            "d": "Green earnings vs. red expenses — exposes \"good revenue / bad month\" instantly."
+            "d": "Green earnings vs. red expenses. Exposes \"good revenue / bad month\" instantly."
           },
           {
             "h": "Top Products + Recent Transactions",
@@ -185,11 +185,11 @@
           },
           {
             "h": "Classic tree-table",
-            "d": "Expandable rows reveal full order objects — answer \"where is order 5421?\" in two clicks."
+            "d": "Expandable rows reveal full order objects, so you can answer \"where is order 5421?\" in two clicks."
           },
           {
             "h": "Permission-aware widgets",
-            "d": "Tiles vanish entirely for roles without `Sales Report View` — no greyed-out teases."
+            "d": "Tiles vanish entirely for roles without `Sales Report View`. No greyed-out teases."
           }
         ]
       },
@@ -211,7 +211,7 @@
           },
           {
             "h": "Order Detail",
-            "d": "Editable status dropdowns · payment history · billing + shipping addresses · customer order history — all on one page."
+            "d": "Editable status dropdowns · payment history · billing + shipping addresses · customer order history, all on one page."
           },
           {
             "h": "Edit Order",
@@ -219,7 +219,7 @@
           },
           {
             "h": "Order History",
-            "d": "Tree-table with per-column filtering — accountants reconcile end-of-month without dev access."
+            "d": "Tree-table with per-column filtering, so accountants reconcile end-of-month without dev access."
           },
           {
             "h": "Invoice Print",
@@ -240,7 +240,7 @@
         "label": "Catalog",
         "count": 10,
         "icon": "box",
-        "title": "Inventory, batches, warehouses — one schema.",
+        "title": "Inventory, batches, warehouses. One schema.",
         "sub": "Variants roll up into one listing. Batches power expiry. Damage and Return pages keep shrinkage honest.",
         "items": [
           {
@@ -277,7 +277,7 @@
           },
           {
             "h": "Damage Log",
-            "d": "Every write-off logged with reason + warehouse — spot pattern losses across locations."
+            "d": "Every write-off logged with reason + warehouse, so you spot pattern losses across locations."
           },
           {
             "h": "Returns Workflow",
@@ -333,7 +333,7 @@
           },
           {
             "h": "Refunds",
-            "d": "Refund-rate stat · status workflow · refund code per ticket — a leading quality indicator."
+            "d": "Refund-rate stat · status workflow · refund code per ticket. A leading quality indicator."
           },
           {
             "h": "Audit Log",
@@ -353,7 +353,7 @@
           },
           {
             "h": "Customer Report",
-            "d": "Coming soon — repeat rate, lifetime value, cohort analysis (backend ready)."
+            "d": "Coming soon: repeat rate, lifetime value, cohort analysis (backend ready)."
           }
         ]
       },
@@ -363,15 +363,15 @@
         "count": 11,
         "icon": "shield",
         "title": "Roles, integrations, payouts.",
-        "sub": "Granular permissions, server-side CAPI tracking, and self-service withdrawals — without a sales call.",
+        "sub": "Granular permissions, server-side CAPI tracking, and self-service withdrawals, without a sales call.",
         "items": [
           {
             "h": "Shop Info",
-            "d": "Manage your shop profile, business details, and branding from one place — with changes synced instantly across your dashboard."
+            "d": "Manage your shop profile, business details, and branding from one place, with changes synced instantly across your dashboard."
           },
           {
             "h": "Content Pages",
-            "d": "Create and update all your essential business and legal pages — including Privacy Policy, FAQ, Contact, and Refund Policy — with ease."
+            "d": "Create and update all your essential business and legal pages, including Privacy Policy, FAQ, Contact, and Refund Policy, with ease."
           },
           {
             "h": "Shop Settings",
@@ -379,7 +379,7 @@
           },
           {
             "h": "Tracking & Integrations",
-            "d": "Server-side Facebook CAPI · GTM server URL · GA4 Measurement Protocol — survives cookie deprecation."
+            "d": "Server-side Facebook CAPI · GTM server URL · GA4 Measurement Protocol. Survives cookie deprecation."
           },
           {
             "h": "Courier Integration",
@@ -403,7 +403,7 @@
           },
           {
             "h": "Earnings",
-            "d": "Total Earning · Account Balance · Growth Rate · Dues — focused alternative to full Accounting Overview."
+            "d": "Total Earning · Account Balance · Growth Rate · Dues. A focused alternative to the full Accounting Overview."
           },
           {
             "h": "Withdraw",
@@ -430,27 +430,27 @@
         },
         {
           "label": "Refunds & Returns",
-          "val": "— ৳ 64,210",
+          "val": "− ৳ 64,210",
           "tone": "neg"
         },
         {
           "label": "Courier Fees",
-          "val": "— ৳ 2,18,400",
+          "val": "− ৳ 2,18,400",
           "tone": "neg"
         },
         {
           "label": "Gateway Fees",
-          "val": "— ৳ 36,820",
+          "val": "− ৳ 36,820",
           "tone": "neg"
         },
         {
           "label": "Ad Spend (Meta)",
-          "val": "— ৳ 4,10,000",
+          "val": "− ৳ 4,10,000",
           "tone": "neg"
         },
         {
           "label": "COGS",
-          "val": "— ৳ 6,12,340",
+          "val": "− ৳ 6,12,340",
           "tone": "neg"
         }
       ],
@@ -515,7 +515,7 @@
     "eyebrow": "Loved by founders",
     "title": "Real merchants. Real margins.",
     "tagline": "SELL + SELFIE = SELLSFIE",
-    "quotePre": "\"Before Sellsfie, I was tracking orders in a notebook and chasing couriers on the phone. Now everything runs from one dashboard—inventory, payments, and delivery. My team handles everything faster and more efficiently.",
+    "quotePre": "\"Before Sellsfie, I was tracking orders in a notebook and chasing couriers on the phone. Now everything runs from one dashboard: inventory, payments, and delivery. My team handles everything faster and more efficiently.",
     "quoteAccent": "3× more orders",
     "quotePost": " without any extra headcount.\"",
     "who": "Khalid Hasan",
@@ -553,7 +553,7 @@
     "cta": {
       "heading": "Need something",
       "headingAccent": "unique",
-      "sub": "Can't find the perfect fit? Create your shop and build a custom landing page tailored to your brand — no coding required.",
+      "sub": "Can't find the perfect fit? Create your shop and build a custom landing page tailored to your brand, no coding required.",
       "createShop": "Create your shop",
       "requestDemo": "Request a demo",
       "noCreditCard": "No credit card required",
@@ -564,7 +564,7 @@
       "badge": "Website Templates",
       "title": "Your whole store,",
       "titleAccent": "one template",
-      "sub": "Complete, multi-page website templates for your brand — home, shop, product, and checkout, ready to launch.",
+      "sub": "Complete, multi-page website templates for your brand: home, shop, product, and checkout, ready to launch.",
       "heading": "Website Templates Demo Coming Soon",
       "comingSub": "We're putting the finishing touches on this. Check back soon."
     }
@@ -714,7 +714,7 @@
     },
     "success": {
       "title": "You're on the list!",
-      "sub": "Your shop is awaiting admin approval. We'll email you the moment it's ready — usually within 24 hours.",
+      "sub": "Your shop is awaiting admin approval. We'll email you the moment it's ready, usually within 24 hours.",
       "b1": "Phone verified",
       "b2": "Application submitted",
       "b3": "Admin review in progress",
@@ -733,7 +733,7 @@
   "demo": {
     "eyebrow": "Book a demo",
     "title": "See Sellsfie in action.",
-    "sub": "Chat with our team on WhatsApp and get a 30-minute guided tour of the Business OS — built for Bangladeshi merchants.",
+    "sub": "Chat with our team on WhatsApp and get a 30-minute guided tour of the Business OS, built for Bangladeshi merchants.",
     "points": [
       "Live walkthrough of orders, inventory, and accounting",
       "Tailored to your shop size and product mix",
@@ -741,7 +741,7 @@
     ],
     "cardEyebrow": "Talk to sales",
     "cardTitle": "Reach us on WhatsApp",
-    "cardSub": "Tap the button below — we usually reply within a few minutes during business hours.",
+    "cardSub": "Tap the button below. We usually reply within a few minutes during business hours.",
     "cta": "Chat on WhatsApp"
   }
 }

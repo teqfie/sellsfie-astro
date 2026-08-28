@@ -1,4 +1,5 @@
 ---
+import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { useTranslations, toLang, localizePath, languages } from '../i18n';
 
@@ -34,8 +35,7 @@ const hrefFor = (href: string) =>
       class="glass rounded-2xl flex items-center justify-between gap-3 px-3 sm:px-5 h-14 sm:h-16"
     >
       <a class="flex items-center gap-2 pl-1 leading-none" href={localizePath('/', lang)}>
-        <img src="/assets/sellsfie-logo-white.png" alt="Sellsfie" class="block h-6 sm:h-7 w-auto theme-logo-dark" width="1660" height="346" />
-        <img src="/assets/sellsfie-logo.png" alt="Sellsfie" class="block h-6 sm:h-7 w-auto theme-logo-light" width="1660" height="348" />
+        <Logo eager class="block h-6 sm:h-7 w-auto" />
       </a>
 
       <ul class="hidden lg:flex items-center gap-1 text-sm text-slate-300/90">
@@ -76,11 +76,12 @@ const hrefFor = (href: string) =>
               data-lang-trigger
               aria-haspopup="true"
               aria-expanded="false"
-              aria-label={t('nav.changeLang')}
               class="inline-flex h-9 items-center gap-1.5 px-2.5 rounded-lg border border-white/10 bg-white/[0.03] text-slate-300 hover:text-white hover:bg-white/[0.06] text-xs font-mono transition-all hover:scale-105"
             >
               <Icon name="Globe" size={13} />
+              <span class="sr-only">{t('nav.changeLang')}:</span>
               <span class="tracking-wider">{current.short}</span>
+              <span class="sr-only">({current.label})</span>
               <Icon name="ChevronDown" size={11} strokeWidth={2} class="transition-transform" />
             </button>
             <div

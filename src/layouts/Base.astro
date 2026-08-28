@@ -39,6 +39,23 @@ const canonical = new URL(localizePath(path, lang), site).href;
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
 
+    {/* The Bengali faces are ~180 KB and only Bengali pages need them. English
+        pages show two Bengali characters (the language switcher label) and let
+        those fall through to the system Bengali font instead of paying for a
+        webfont download. */}
+    {lang === 'bn' && (
+      <>
+        <link rel="preload" as="font" type="font/woff2" href="/fonts/noto-sans-bengali-bengali-400-normal.woff2" crossorigin />
+        <link rel="preload" as="font" type="font/woff2" href="/fonts/noto-sans-bengali-bengali-700-normal.woff2" crossorigin />
+        <style is:inline set:html={`
+          @font-face{font-family:'Noto Sans Bengali';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/noto-sans-bengali-bengali-400-normal.woff2') format('woff2');unicode-range:U+0951-0952,U+0964-0965,U+0980-09FE,U+1CD0,U+1CD2,U+1CD5-1CD6,U+1CD8,U+1CE1,U+1CEA,U+1CED,U+1CF2,U+1CF5-1CF7,U+200C-200D,U+20B9,U+25CC,U+A8F1;}
+          @font-face{font-family:'Noto Sans Bengali';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/noto-sans-bengali-bengali-500-normal.woff2') format('woff2');unicode-range:U+0951-0952,U+0964-0965,U+0980-09FE,U+1CD0,U+1CD2,U+1CD5-1CD6,U+1CD8,U+1CE1,U+1CEA,U+1CED,U+1CF2,U+1CF5-1CF7,U+200C-200D,U+20B9,U+25CC,U+A8F1;}
+          @font-face{font-family:'Noto Sans Bengali';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/noto-sans-bengali-bengali-600-normal.woff2') format('woff2');unicode-range:U+0951-0952,U+0964-0965,U+0980-09FE,U+1CD0,U+1CD2,U+1CD5-1CD6,U+1CD8,U+1CE1,U+1CEA,U+1CED,U+1CF2,U+1CF5-1CF7,U+200C-200D,U+20B9,U+25CC,U+A8F1;}
+          @font-face{font-family:'Noto Sans Bengali';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/noto-sans-bengali-bengali-700-normal.woff2') format('woff2');unicode-range:U+0951-0952,U+0964-0965,U+0980-09FE,U+1CD0,U+1CD2,U+1CD5-1CD6,U+1CD8,U+1CE1,U+1CEA,U+1CED,U+1CF2,U+1CF5-1CF7,U+200C-200D,U+20B9,U+25CC,U+A8F1;}
+        `} />
+      </>
+    )}
+
     {/* Applied before first paint so a light-theme visitor never sees a dark flash. */}
     <script is:inline>
       try {
@@ -56,8 +73,11 @@ const canonical = new URL(localizePath(path, lang), site).href;
     </style>
   </head>
   <body>
+    <a class="skip-link btn-brand inline-flex items-center h-10 px-4 rounded-xl text-sm font-semibold" href="#main">
+      Skip to content
+    </a>
     <Nav path={path} />
-    <main>
+    <main id="main" tabindex="-1">
       <slot />
     </main>
     <Footer path={path} />
@@ -72,7 +92,18 @@ const canonical = new URL(localizePath(path, lang), site).href;
         if (stored === 'light') document.body.classList.add('theme-light');
         document.documentElement.removeAttribute('data-boot-theme');
 
+        function paintLogos(isLight) {
+          document.querySelectorAll('[data-logo]').forEach(function (img) {
+            var next = isLight ? img.dataset.logoLight : img.dataset.logoDark;
+            if (next && img.getAttribute('src') !== next) {
+              img.removeAttribute('srcset');
+              img.src = next;
+            }
+          });
+        }
+
         function paint(isLight) {
+          paintLogos(isLight);
           document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
             btn.title = isLight ? 'Switch to dark' : 'Switch to light';
             var moon = btn.querySelector('[data-icon="moon"]');

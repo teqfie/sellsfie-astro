@@ -9,6 +9,14 @@ export default {
         mono: ['var(--font-mono)', 'JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
+        // The stock slate-500/600 fail WCAG AA on this near-black background
+        // (4.22:1 and 2.65:1). These are the same hue lifted to 5.05:1 and
+        // 4.60:1, so every existing `text-slate-500/600` passes without
+        // touching the ~100 places they are used.
+        slate: {
+          500: '#708198',
+          600: '#6A7A93',
+        },
         brand: {
           DEFAULT: '#38CE00',
           light: '#4BE000',

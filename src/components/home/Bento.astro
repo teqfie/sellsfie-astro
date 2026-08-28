@@ -12,17 +12,17 @@ const cities = tList<{ name: string; stock: number; cap: number; sku: string }>(
 <section id="features" class="py-14 sm:py-24">
   <div class="max-w-6xl mx-auto px-5">
     <div class="max-w-2xl">
-      <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-brand">{t('bento.eyebrow')}</div>
+      <div class="eyebrow text-brand">{t('bento.eyebrow')}</div>
       <h2 class="mt-3 font-display text-4xl sm:text-5xl font-extrabold text-white">{t('bento.title')}</h2>
       <p class="mt-4 text-slate-400">{t('bento.sub')}</p>
     </div>
 
     <div class="mt-12 grid lg:grid-cols-4 lg:auto-rows-[260px] gap-5">
-      {/* Logistics card — the interactive dispatch demo */}
+      {/* Logistics card: the interactive dispatch demo */}
       <div class="bento p-7 sm:p-9 lg:col-span-2 lg:row-span-2 min-h-[360px] flex flex-col" data-dispatch>
         <div class="flex items-start justify-between">
           <div>
-            <div class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-brand">
+            <div class="inline-flex items-center gap-1.5 eyebrow text-brand">
               <span class="h-1.5 w-1.5 rounded-full bg-brand pulse-dot"></span>
               {t('bento.logistics.eyebrow')}
             </div>
@@ -66,7 +66,7 @@ const cities = tList<{ name: string; stock: number; cap: number; sku: string }>(
                   <Icon name="Check" size={14} strokeWidth={3} />
                 </span>
                 <div class="leading-tight">
-                  <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-brand">
+                  <div class="eyebrow-sm text-brand">
                     {t('bento.logistics.tracking')}
                   </div>
                   <div class="font-mono text-white text-sm">#PP-12345-BD</div>
@@ -98,7 +98,7 @@ const cities = tList<{ name: string; stock: number; cap: number; sku: string }>(
       <div class="bento p-7 lg:col-span-2 lg:row-span-2 min-h-[360px]">
         <div class="flex items-start justify-between">
           <div>
-            <div class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-slate-400">
+            <div class="inline-flex items-center gap-1.5 eyebrow text-slate-400">
               <Icon name="Warehouse" size={12} /> {t('bento.warehouse.eyebrow')}
             </div>
             <h3 class="mt-3 font-display text-2xl font-extrabold text-white">{t('bento.warehouse.title')}</h3>
@@ -110,7 +110,7 @@ const cities = tList<{ name: string; stock: number; cap: number; sku: string }>(
           {cities.map((city) => (
             <div class="flex items-center gap-4 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
               <div class="flex items-center gap-3 w-32">
-                <span class="h-2 w-2 rounded-full bg-brand pulse-dot"></span>
+                <span class="h-2 w-2 rounded-full bg-brand/70"></span>
                 <div>
                   <div class="text-white font-semibold leading-none">{city.name}</div>
                   <div class="text-[10px] font-mono text-slate-500 mt-1">{city.sku}</div>

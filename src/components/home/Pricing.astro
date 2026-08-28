@@ -30,7 +30,7 @@ const discountLabel = lang === 'bn' ? '−২০%' : '−20%';
 <section id="pricing" class="py-14 sm:py-24">
   <div class="max-w-6xl mx-auto px-5">
     <div class="text-center max-w-2xl mx-auto">
-      <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-brand">{t('pricing.eyebrow')}</div>
+      <div class="eyebrow text-brand">{t('pricing.eyebrow')}</div>
       <h2 class="mt-3 font-display text-4xl sm:text-5xl font-extrabold text-white">{t('pricing.title')}</h2>
       <p class="mt-3 text-slate-400">{t('pricing.sub')}</p>
 
@@ -70,11 +70,11 @@ const discountLabel = lang === 'bn' ? '−২০%' : '−20%';
             }`}
           >
             {plan.badge && (
-              <div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-[#04150A] font-bold">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1 eyebrow-sm text-[#04150A] font-bold">
                 <Icon name="Bolt" size={11} strokeWidth={2.5} /> {plan.badge}
               </div>
             )}
-            <div class="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">{plan.name}</div>
+            <div class="eyebrow text-slate-500">{plan.name}</div>
             <div class="mt-1 font-display text-xl font-extrabold text-white">{plan.tagline}</div>
 
             <div class="mt-6 flex items-baseline gap-1.5">

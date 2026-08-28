@@ -1,5 +1,11 @@
 ---
+import { Image, getImage } from 'astro:assets';
 import Icon from '../Icon.astro';
+import dashboardAnalytics from '../../assets/screenshots/dashboard-analytics.png';
+import orderManagement from '../../assets/screenshots/order-management.png';
+import productList from '../../assets/screenshots/product-list.png';
+import accountingOverview from '../../assets/screenshots/accounting-overview.png';
+import roleManagement from '../../assets/screenshots/role-management.png';
 import type { IconName } from '../icons';
 import { useTranslations, toLang, localizePath, formatNumber } from '../../i18n';
 import { fetchTemplates } from '../../lib/templates';
@@ -32,13 +38,25 @@ const iconFor: Record<string, IconName> = {
   shield: 'Shield',
 };
 
-const shots: Record<string, { src: string; alt: string }> = {
-  overview: { src: '/assets/screenshots/dashboard-analytics.png', alt: 'Sellsfie analytics dashboard' },
-  sales: { src: '/assets/screenshots/order-management.png', alt: 'Order management screen' },
-  catalog: { src: '/assets/screenshots/product-list.png', alt: 'Product catalog list' },
-  finance: { src: '/assets/screenshots/accounting-overview.png', alt: 'Accounting overview' },
-  admin: { src: '/assets/screenshots/role-management.png', alt: 'Role management' },
-};
+const shots = {
+  overview: { img: dashboardAnalytics, alt: 'Sellsfie analytics dashboard' },
+  sales: { img: orderManagement, alt: 'Order management screen' },
+  catalog: { img: productList, alt: 'Product catalog list' },
+  finance: { img: accountingOverview, alt: 'Accounting overview' },
+  admin: { img: roleManagement, alt: 'Role management' },
+} as const;
+
+/* The originals are ~1920px PNGs (2.6 MB in total) rendered into a ~400px
+   slot. These are re-encoded to webp at the sizes actually used, with a
+   larger variant reserved for the lightbox. */
+const lightboxSrc: Record<string, string> = Object.fromEntries(
+  await Promise.all(
+    Object.entries(shots).map(async ([key, shot]) => [
+      key,
+      (await getImage({ src: shot.img, width: 1600, format: 'webp', quality: 82 })).src,
+    ]),
+  ),
+);
 
 // The marketing panel shows a 4-up template grid, resolved at build time.
 const { templates } = await fetchTemplates(1, 4);
@@ -48,7 +66,7 @@ const marketingTiles = templates.length > 0 ? templates.slice(0, 4) : [];
 <section id="deep-dive" class="py-14 sm:py-24 border-t border-white/5">
   <div class="max-w-6xl mx-auto px-5">
     <div class="max-w-2xl">
-      <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-brand">{t('features.eyebrow')}</div>
+      <div class="eyebrow text-brand">{t('features.eyebrow')}</div>
       <h2 class="mt-3 font-display text-4xl sm:text-5xl font-extrabold text-white">{t('features.title')}</h2>
       <p class="mt-4 text-slate-400">{t('features.sub')}</p>
     </div>
@@ -62,6 +80,7 @@ const marketingTiles = templates.length > 0 ? templates.slice(0, 4) : [];
             id={`tab-${cat.id}`}
             aria-controls={`panel-${cat.id}`}
             aria-selected={index === 0 ? 'true' : 'false'}
+            tabindex={index === 0 ? 0 : -1}
             data-tab={cat.id}
             class={`relative inline-flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
               index === 0
@@ -172,19 +191,25 @@ const marketingTiles = templates.length > 0 ? templates.slice(0, 4) : [];
                 ))}
               </div>
             ) : (
-              <div
-                class="rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden cursor-pointer group/shot"
+              <button
+                type="button"
+                class="w-full rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden cursor-zoom-in group/shot text-left"
                 data-lightbox-open
-                data-src={shots[cat.id]?.src}
+                data-src={lightboxSrc[cat.id]}
                 data-alt={shots[cat.id]?.alt}
+                aria-label={`${shots[cat.id]?.alt}, open larger`}
               >
-                <img
-                  src={shots[cat.id]?.src}
-                  alt={shots[cat.id]?.alt}
-                  loading="lazy"
+                <Image
+                  src={shots[cat.id].img}
+                  alt={shots[cat.id].alt}
+                  widths={[420, 840]}
+                  sizes="(min-width: 1024px) 420px, 92vw"
+                  format="webp"
+                  quality={80}
+                  loading={index === 0 ? 'eager' : 'lazy'}
                   class="w-full h-auto block transition-transform duration-300 group-hover/shot:scale-[1.02]"
                 />
-              </div>
+              </button>
             )}
           </div>
           <div class="mt-3 text-[11px] font-mono text-slate-500 flex items-center gap-2">
@@ -227,6 +252,7 @@ const marketingTiles = templates.length > 0 ? templates.slice(0, 4) : [];
     tabs.forEach((tab) => {
       const on = tab.dataset.tab === id;
       tab.setAttribute('aria-selected', String(on));
+      tab.tabIndex = on ? 0 : -1;
       ACTIVE_TAB.forEach((c) => tab.classList.toggle(c, on));
       IDLE_TAB.forEach((c) => tab.classList.toggle(c, !on));
       tab.querySelector('svg')?.classList.toggle('text-brand', on);
@@ -249,6 +275,34 @@ const marketingTiles = templates.length > 0 ? templates.slice(0, 4) : [];
   };
 
   tabs.forEach((tab) => tab.addEventListener('click', () => select(tab.dataset.tab!)));
+
+  // Standard ARIA tabs keyboard model: arrows move between tabs, Home/End jump
+  // to the ends, and only the active tab is in the tab order (roving tabindex).
+  const tabIds = [...tabs].map((t) => t.dataset.tab!);
+  tabs.forEach((tab) =>
+    tab.addEventListener('keydown', (event) => {
+      const current = tabIds.indexOf(tab.dataset.tab!);
+      let nextIndex: number | null = null;
+      switch (event.key) {
+        case 'ArrowRight':
+          nextIndex = (current + 1) % tabIds.length;
+          break;
+        case 'ArrowLeft':
+          nextIndex = (current - 1 + tabIds.length) % tabIds.length;
+          break;
+        case 'Home':
+          nextIndex = 0;
+          break;
+        case 'End':
+          nextIndex = tabIds.length - 1;
+          break;
+      }
+      if (nextIndex === null) return;
+      event.preventDefault();
+      select(tabIds[nextIndex]);
+      tabs[nextIndex].focus();
+    }),
+  );
 
   // --- Screenshot lightbox ---
   const lightbox = document.querySelector<HTMLElement>('[data-lightbox]');
