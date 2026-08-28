@@ -273,6 +273,42 @@ body.theme-light .polaroid { box-shadow: 0 30px 60px -25px #00000040, 0 0 0 1px 
 body.theme-light input::placeholder { color: #6b7484; }
 
 
+/* ---- Keyframes -----------------------------------------------------------
+   These must live in CSS, not tailwind.config. Tailwind only emits a
+   @keyframes block when a matching `animate-*` utility appears in markup, and
+   the classes below reference these names directly, so a config-only
+   definition is silently dropped and the animation never runs. */
+@keyframes marquee {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50%); }
+}
+
+@keyframes blip {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.18); }
+}
+
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(56, 206, 0, 0.6); }
+  70% { box-shadow: 0 0 0 10px rgba(56, 206, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(56, 206, 0, 0); }
+}
+
+@keyframes aura {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
 /* ---- Respect the OS "reduce motion" setting ----------------------------
    The page runs ~28 simultaneous animations (marquee, aura, pulse dots,
    blips). For visitors who ask for less motion, hold everything still
