@@ -1,0 +1,229 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations, toLang, localizePath, languages } from '../i18n';
+
+interface Props {
+  path: string;
+}
+
+const { path } = Astro.props;
+const lang = toLang(Astro.currentLocale);
+const { t } = useTranslations(lang);
+
+const SHOP_PANEL_URL = 'https://shop.sellsfie.com';
+const current = languages.find((l) => l.code === lang) ?? languages[0];
+
+const links = [
+  { href: '/#features', label: t('nav.links.features') },
+  { href: '/#integrations', label: t('nav.links.integrations') },
+  { href: '/#pricing', label: t('nav.links.pricing') },
+  { href: '/templates/landing-pages', label: t('nav.links.templates') },
+  { href: '/#cases', label: t('nav.links.cases') },
+];
+
+/** Hash links only ever highlight on the home page; the observer takes over there. */
+const isActive = (href: string) => !href.startsWith('/#') && path === href;
+const hrefFor = (href: string) =>
+  href.startsWith('/#') ? localizePath('/', lang) + href.slice(1) : localizePath(href, lang);
+---
+
+<header class="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
+  <div class="pointer-events-auto mt-4 mx-4 w-full max-w-6xl">
+    <nav
+      data-nav
+      class="glass rounded-2xl flex items-center justify-between gap-3 px-3 sm:px-5 h-14 sm:h-16"
+    >
+      <a class="flex items-center gap-2 pl-1 leading-none" href={localizePath('/', lang)}>
+        <img src="/assets/sellsfie-logo-white.png" alt="Sellsfie" class="block h-6 sm:h-7 w-auto theme-logo-dark" width="1660" height="346" />
+        <img src="/assets/sellsfie-logo.png" alt="Sellsfie" class="block h-6 sm:h-7 w-auto theme-logo-light" width="1660" height="348" />
+      </a>
+
+      <ul class="hidden lg:flex items-center gap-1 text-sm text-slate-300/90">
+        {links.map((link) => (
+          <li>
+            <a
+              href={hrefFor(link.href)}
+              data-navlink={link.href}
+              class={`px-3 py-2 rounded-lg transition-colors ${
+                isActive(link.href) ? 'text-white bg-white/10' : 'hover:bg-white/5'
+              }`}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button
+          data-theme-toggle
+          aria-label={t('nav.toggleTheme')}
+          title={t('nav.lightSwitch')}
+          class="relative inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-300 hover:text-white hover:bg-white/[0.06] transition-all hover:scale-105 overflow-hidden"
+        >
+          <span data-icon="moon" class="absolute transition-all duration-300 opacity-100 rotate-0 scale-100">
+            <Icon name="Moon" size={15} />
+          </span>
+          <span data-icon="sun" class="absolute transition-all duration-300 opacity-0 rotate-90 scale-50">
+            <Icon name="Sun" size={15} />
+          </span>
+        </button>
+
+        <div class="hidden sm:block">
+          <div class="relative" data-lang-menu>
+            <button
+              type="button"
+              data-lang-trigger
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label={t('nav.changeLang')}
+              class="inline-flex h-9 items-center gap-1.5 px-2.5 rounded-lg border border-white/10 bg-white/[0.03] text-slate-300 hover:text-white hover:bg-white/[0.06] text-xs font-mono transition-all hover:scale-105"
+            >
+              <Icon name="Globe" size={13} />
+              <span class="tracking-wider">{current.short}</span>
+              <Icon name="ChevronDown" size={11} strokeWidth={2} class="transition-transform" />
+            </button>
+            <div
+              data-lang-panel
+              hidden
+              class="absolute right-0 mt-2 w-40 rounded-xl border border-white/10 bg-[#0B0F14]/95 backdrop-blur-md shadow-2xl p-1 z-50"
+            >
+              {languages.map((l) => (
+                <a
+                  href={localizePath(path, l.code)}
+                  class={`w-full flex items-center justify-between px-3 h-9 rounded-lg text-sm transition-colors ${
+                    lang === l.code
+                      ? 'bg-brand/10 text-brand'
+                      : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  <span>{l.label}</span>
+                  <span class="font-mono text-[10px] tracking-wider opacity-70">{l.short}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <span class="hidden lg:block h-5 w-px bg-white/10"></span>
+
+        <a
+          href={SHOP_PANEL_URL}
+          class="hidden lg:inline-flex h-9 items-center px-3 text-sm text-slate-300 hover:text-white rounded-lg hover:bg-white/5 transition-all hover:scale-105"
+        >
+          {t('nav.login')}
+        </a>
+
+        <a
+          href={localizePath('/demo', lang)}
+          class="btn-brand inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3.5 rounded-lg text-xs sm:text-sm font-semibold transition-all hover:scale-105 whitespace-nowrap"
+        >
+          <span class="sm:hidden">{t('nav.trialShort')}</span>
+          <span class="hidden sm:inline">{t('nav.trialFull')}</span>
+          <Icon name="ArrowRight" size={14} strokeWidth={2.25} />
+        </a>
+
+        <button
+          type="button"
+          data-menu-trigger
+          aria-expanded="false"
+          aria-label={t('nav.toggleMenu')}
+          class="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-300 hover:bg-white/5"
+        >
+          <span data-icon="menu"><Icon name="Menu" size={18} /></span>
+          <span data-icon="close" hidden><Icon name="Close" size={18} /></span>
+        </button>
+      </div>
+    </nav>
+
+    <div data-mobile-menu hidden class="lg:hidden glass mt-2 rounded-2xl p-2">
+      {links.map((link) => (
+        <a
+          href={hrefFor(link.href)}
+          data-navlink-mobile={link.href}
+          class={`block px-3 py-2 rounded-lg ${
+            isActive(link.href)
+              ? 'text-white bg-white/10'
+              : 'text-slate-300 hover:bg-white/5 hover:text-white'
+          }`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  const nav = document.querySelector('[data-nav]');
+  const menuTrigger = document.querySelector('[data-menu-trigger]');
+  const mobileMenu = document.querySelector('[data-mobile-menu]');
+  const langMenu = document.querySelector('[data-lang-menu]');
+
+  // Nav gains a drop shadow once the page scrolls away from the top.
+  const SHADOW = 'shadow-[0_18px_60px_-30px_rgba(0,0,0,0.9)]';
+  const onScroll = () => nav?.classList.toggle(SHADOW, window.scrollY > 24);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile menu
+  menuTrigger?.addEventListener('click', () => {
+    const open = mobileMenu?.hasAttribute('hidden');
+    if (open) mobileMenu?.removeAttribute('hidden');
+    else mobileMenu?.setAttribute('hidden', '');
+    menuTrigger.setAttribute('aria-expanded', String(open));
+    menuTrigger.querySelector('[data-icon="menu"]')?.toggleAttribute('hidden', open);
+    menuTrigger.querySelector('[data-icon="close"]')?.toggleAttribute('hidden', !open);
+  });
+  mobileMenu?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => {
+      mobileMenu.setAttribute('hidden', '');
+      menuTrigger?.setAttribute('aria-expanded', 'false');
+      menuTrigger?.querySelector('[data-icon="menu"]')?.removeAttribute('hidden');
+      menuTrigger?.querySelector('[data-icon="close"]')?.setAttribute('hidden', '');
+    }),
+  );
+
+  // Language dropdown
+  const langTrigger = langMenu?.querySelector('[data-lang-trigger]');
+  const langPanel = langMenu?.querySelector('[data-lang-panel]');
+  const chevron = langTrigger?.querySelector('svg:last-of-type');
+  const setLangOpen = (open: boolean) => {
+    if (open) langPanel?.removeAttribute('hidden');
+    else langPanel?.setAttribute('hidden', '');
+    langTrigger?.setAttribute('aria-expanded', String(open));
+    chevron?.classList.toggle('rotate-180', open);
+  };
+  langTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setLangOpen(langPanel?.hasAttribute('hidden') ?? false);
+  });
+  document.addEventListener('mousedown', (e) => {
+    if (langMenu && !langMenu.contains(e.target as Node)) setLangOpen(false);
+  });
+
+  // Highlight the nav link for whichever section is currently on screen.
+  const sections = ['features', 'integrations', 'pricing', 'cases'];
+  if (sections.some((id) => document.getElementById(id))) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (!visible.length) return;
+        const id = visible[0].target.id;
+        document.querySelectorAll<HTMLAnchorElement>('[data-navlink]').forEach((a) => {
+          const active = a.dataset.navlink === `/#${id}`;
+          a.classList.toggle('text-white', active);
+          a.classList.toggle('bg-white/10', active);
+          a.classList.toggle('hover:bg-white/5', !active);
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px', threshold: 0 },
+    );
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  }
+</script>

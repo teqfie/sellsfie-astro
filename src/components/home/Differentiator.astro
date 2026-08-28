@@ -1,0 +1,106 @@
+---
+import Icon from '../Icon.astro';
+import { useTranslations, toLang } from '../../i18n';
+
+const lang = toLang(Astro.currentLocale);
+const { t, tList } = useTranslations(lang);
+
+const rows = tList<{ label: string; val: string; tone?: string }>('differentiator.pnl.rows');
+const logs = tList<{
+  who: string;
+  role: string;
+  act: string;
+  target: string;
+  detail: string;
+  time: string;
+  tone: 'pos' | 'neg' | 'warn' | 'info';
+}>('differentiator.audit.logs');
+
+const toneDot: Record<string, string> = {
+  pos: 'bg-brand',
+  neg: 'bg-rose-400',
+  warn: 'bg-amber-300',
+  info: 'bg-sky-400',
+};
+---
+
+<section class="py-14 sm:py-24 relative">
+  <div class="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="max-w-3xl">
+      <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-brand">{t('differentiator.eyebrow')}</div>
+      <h2 class="mt-3 font-display text-4xl sm:text-5xl font-extrabold text-white">
+        {t('differentiator.title1')} <span class="text-slate-400">{t('differentiator.title2')}</span>
+      </h2>
+      <p class="mt-4 text-slate-400 text-lg max-w-2xl">{t('differentiator.sub')}</p>
+    </div>
+
+    <div class="mt-12 grid lg:grid-cols-2 gap-5">
+      {/* P&L card */}
+      <div class="bento p-6 sm:p-7">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-2">
+            <Icon name="Chart" size={16} class="text-slate-400" />
+            <div class="text-sm font-semibold text-white">{t('differentiator.pnl.title')}</div>
+            <span class="text-[10px] font-mono text-slate-500 ml-1">{t('differentiator.pnl.date')}</span>
+          </div>
+          <div class="text-[10px] font-mono text-slate-500">{t('differentiator.pnl.auto')}</div>
+        </div>
+        <ul class="divide-y divide-white/5">
+          {rows.map((row) => (
+            <li class="flex items-center justify-between py-2.5 text-sm">
+              <span class="text-slate-400">{row.label}</span>
+              <span class={`font-mono tabular-nums ${row.tone === 'pos' ? 'text-white' : 'text-slate-300'}`}>
+                {row.val}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-4 rounded-xl border border-brand/30 bg-brand/5 p-4 flex items-center justify-between">
+          <div>
+            <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-brand">
+              {t('differentiator.pnl.netLabel')}
+            </div>
+            <div class="font-display text-2xl font-extrabold text-white">{t('differentiator.pnl.netVal')}</div>
+          </div>
+          <div class="flex items-center gap-1 text-brand text-sm font-semibold">
+            <Icon name="ArrowUp" size={14} strokeWidth={2.5} /> {t('differentiator.pnl.mom')}
+          </div>
+        </div>
+      </div>
+
+      {/* Audit log card */}
+      <div class="bento p-6 sm:p-7">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-2">
+            <Icon name="Shield" size={16} class="text-slate-400" />
+            <div class="text-sm font-semibold text-white">{t('differentiator.audit.title')}</div>
+            <span class="text-[10px] font-mono text-slate-500 ml-1">{t('differentiator.audit.sub')}</span>
+          </div>
+          <button type="button" class="text-[10px] font-mono text-slate-500 hover:text-white">
+            {t('differentiator.audit.viewAll')}
+          </button>
+        </div>
+        <ul class="space-y-3.5">
+          {logs.map((log) => (
+            <li class="flex gap-3 text-sm">
+              <span class={`mt-1.5 h-2 w-2 rounded-full shrink-0 ${toneDot[log.tone] ?? 'bg-slate-500'}`}></span>
+              <div class="flex-1 min-w-0">
+                <div class="text-slate-300">
+                  <span class="text-white font-semibold">{log.who}</span>
+                  <span class="text-slate-500"> · {log.role}</span>
+                  <span> {log.act} </span>
+                  <span class="font-mono text-white">{log.target}</span>
+                </div>
+                <div class="mt-0.5 flex items-center justify-between">
+                  <span class="font-mono text-[11px] text-slate-500">{log.detail}</span>
+                  <span class="text-[11px] text-slate-600">{log.time}</span>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

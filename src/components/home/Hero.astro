@@ -1,0 +1,207 @@
+---
+import Icon from '../Icon.astro';
+import { useTranslations, toLang, formatNumber } from '../../i18n';
+
+const lang = toLang(Astro.currentLocale);
+const { t, tList } = useTranslations(lang);
+
+const SHOP_PANEL_URL = 'https://shop.sellsfie.com';
+
+const orders = tList<{ id: string; name: string; amt: string; city: string }>('hero.orders');
+const stocks = tList<{ sku: string; name: string; qty: number; trend: 'up' | 'down' }>('hero.stocks');
+
+/** Bars are the source design's fixed sample series, not real data. */
+const bars = [42, 58, 50, 71, 64, 82, 76, 90, 84, 96];
+
+const isBn = lang === 'bn';
+const startRevenue = 248450;
+const deltas = isBn
+  ? { revenue: '১৮.৪%', orders: '৪১২', ordersDelta: '৬.১%', refunds: '৩,২১০', refundsDelta: '২.০%' }
+  : { revenue: '18.4%', orders: '412', ordersDelta: '6.1%', refunds: '3,210', refundsDelta: '2.0%' };
+---
+
+<section id="top" class="relative pt-28 sm:pt-40 pb-14 sm:pb-24">
+  <div class="absolute inset-0 grid-bg pointer-events-none -z-10"></div>
+  <div class="max-w-6xl mx-auto px-5 grid lg:grid-cols-12 gap-8 sm:gap-12 items-center">
+    <div class="lg:col-span-5">
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand pulse-dot"></span>
+        <span>{t('hero.betaTag')}</span>
+      </div>
+      <h1 class="font-display mt-5 text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[0.98] text-white">
+        {t('hero.title1')}<br />
+        <span class="text-grad-brand">{t('hero.title2')}</span>
+      </h1>
+      <p class="mt-6 text-lg text-slate-400 max-w-xl text-pretty">{t('hero.sub')}</p>
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a
+          href={`${SHOP_PANEL_URL}/register`}
+          class="btn-brand inline-flex items-center gap-2 h-12 px-5 rounded-xl font-display font-bold text-[15px] transition-all hover:scale-105"
+        >
+          {t('hero.ctaPrimary')}
+          <Icon name="ArrowRight" size={16} strokeWidth={2.5} />
+        </a>
+      </div>
+      <div class="mt-7 flex items-center gap-5 text-xs text-slate-500">
+        <div class="flex items-center gap-1.5">
+          <Icon name="Check" size={14} class="text-brand" /> {t('hero.check1')}
+        </div>
+        <div class="flex items-center gap-1.5">
+          <Icon name="Check" size={14} class="text-brand" /> {t('hero.check2')}
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7">
+      <div class="relative">
+        <div class="absolute -inset-10 -z-10 opacity-60">
+          <div
+            class="absolute inset-0 aura"
+            style="background: conic-gradient(from 90deg at 50% 50%, rgba(56,206,0,0.18), transparent 30%, rgba(56,206,0,0.10) 60%, transparent 80%); filter: blur(40px);"
+          >
+          </div>
+        </div>
+
+        <div class="bento p-3.5 sm:p-6 ring-1 ring-white/5">
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-[#FF5F57]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-[#28C840]"></span>
+              <span class="ml-3 text-xs font-mono text-slate-500">{t('hero.dashboardPath')}</span>
+            </div>
+            <div class="hidden sm:flex items-center gap-2 text-xs text-slate-400">
+              <Icon name="Search" size={14} />
+              <span class="font-mono">⌘K</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 sm:gap-3 mb-5">
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-2 sm:p-3 min-w-0">
+              <div class="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-500 truncate">
+                {t('hero.tilesRevenue')}
+              </div>
+              <div class="mt-1 font-display text-sm sm:text-xl font-bold text-white tabular-nums truncate">
+                ৳<span data-revenue data-lang={lang}>{formatNumber(startRevenue, lang)}</span>
+              </div>
+              <div class="mt-1 text-[11px] sm:text-xs text-brand flex items-center gap-1">
+                <Icon name="ArrowUp" size={12} strokeWidth={2.5} /> {deltas.revenue}
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-2 sm:p-3 min-w-0">
+              <div class="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-500">
+                {t('hero.tilesOrders')}
+              </div>
+              <div class="mt-1 font-display text-sm sm:text-xl font-bold text-white tabular-nums">
+                {deltas.orders}
+              </div>
+              <div class="mt-1 text-[11px] sm:text-xs text-brand flex items-center gap-1">
+                <Icon name="ArrowUp" size={12} strokeWidth={2.5} /> {deltas.ordersDelta}
+              </div>
+            </div>
+            <div class="rounded-xl border border-white/5 bg-white/[0.02] p-2 sm:p-3 min-w-0">
+              <div class="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-500">
+                {t('hero.tilesRefunds')}
+              </div>
+              <div class="mt-1 font-display text-sm sm:text-xl font-bold text-white tabular-nums truncate">
+                ৳{deltas.refunds}
+              </div>
+              <div class="mt-1 text-[11px] sm:text-xs text-rose-400/90 flex items-center gap-1">
+                <Icon name="ArrowDown" size={12} strokeWidth={2.5} /> {deltas.refundsDelta}
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3 sm:p-4">
+            <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+              <div class="text-xs sm:text-sm text-slate-300 font-medium">{t('hero.salesTitle')}</div>
+              <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] font-mono text-slate-500">
+                <span class="flex items-center gap-1.5">
+                  <span class="h-2 w-2 rounded-sm bg-brand"></span>{t('hero.salesNet')}
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <span class="h-2 w-2 rounded-sm bg-white/20"></span>{t('hero.salesGross')}
+                </span>
+              </div>
+            </div>
+            <div class="flex items-end gap-1.5 sm:gap-2 h-28 sm:h-32">
+              {bars.map((bar) => (
+                <div class="flex-1 flex flex-col gap-1 justify-end">
+                  <div class="rounded-t-md bg-white/10" style={`height:${Math.min(bar + 8, 100)}%`}></div>
+                  <div
+                    class="rounded-t-md bg-brand/80 -mt-1"
+                    style={`height:${0.6 * bar}%; box-shadow: 0 0 12px rgba(56,206,0,0.45);`}
+                  >
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden lg:block absolute -left-10 top-32 w-64 bento p-4 shadow-2xl rotate-[-3deg]">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-sm font-semibold text-white">{t('hero.recentOrders')}</div>
+            <span class="text-[10px] font-mono text-slate-500">{t('hero.live')}</span>
+          </div>
+          <ul class="space-y-2.5">
+            {orders.map((order) => (
+              <li class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="h-1.5 w-1.5 rounded-full bg-brand pulse-dot"></span>
+                  <span class="font-mono text-slate-400">{order.id}</span>
+                  <span class="text-slate-300">{order.name}</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-white font-medium">{order.amt}</div>
+                  <div class="text-[10px] text-slate-500">{order.city}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="hidden lg:block absolute -right-8 -bottom-6 w-60 bento p-4 shadow-2xl rotate-[2.5deg]">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-sm font-semibold text-white">{t('hero.liveStock')}</div>
+            <Icon name="Warehouse" size={14} class="text-slate-400" />
+          </div>
+          <ul class="space-y-2 text-xs">
+            {stocks.map((stock) => (
+              <li class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-slate-500">{stock.sku}</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-white tabular-nums">{formatNumber(stock.qty, lang)}</span>
+                  {stock.trend === 'up' ? (
+                    <Icon name="ArrowUp" size={11} class="text-brand" strokeWidth={2.5} />
+                  ) : (
+                    <Icon name="ArrowDown" size={11} class="text-rose-400" strokeWidth={2.5} />
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div class="mt-3 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+            <div class="h-full bg-brand" style="width:64%; box-shadow: 0 0 10px rgba(56,206,0,0.6);"></div>
+          </div>
+          <div class="mt-1.5 text-[10px] font-mono text-slate-500">{t('hero.capacity')}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Ticking revenue counter, matching the original's 1.7s cadence.
+  const el = document.querySelector<HTMLElement>('[data-revenue]');
+  if (el) {
+    const locale = el.dataset.lang === 'bn' ? 'bn-BD' : 'en-US';
+    let value = 248450;
+    setInterval(() => {
+      value += Math.floor(Math.random() * 950) + 120;
+      el.textContent = value.toLocaleString(locale);
+    }, 1700);
+  }
+</script>

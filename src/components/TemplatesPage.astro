@@ -1,0 +1,226 @@
+---
+import Icon from './Icon.astro';
+import TemplateTabs from './TemplateTabs.astro';
+import { useTranslations, toLang, localizePath } from '../i18n';
+import { fetchAllTemplates } from '../lib/templates';
+
+const lang = toLang(Astro.currentLocale);
+const { t } = useTranslations(lang);
+
+const SHOP_PANEL_URL = 'https://shop.sellsfie.com';
+const PER_PAGE = 12;
+
+const templates = await fetchAllTemplates();
+const lastPage = Math.max(1, Math.ceil(templates.length / PER_PAGE));
+
+
+const pagerBase = 'inline-flex items-center justify-center h-10 min-w-10 rounded-lg text-sm font-mono';
+const pagerIdle =
+  'border border-white/10 bg-white/[0.03] text-slate-300 transition-all hover:text-white hover:bg-white/[0.06] hover:border-white/20 hover:scale-105';
+---
+
+<div class="pt-28 sm:pt-40 pb-24">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300 mb-5">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand pulse-dot"></span>
+        <span>{t('templates.badge')}</span>
+      </div>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+        {t('templates.title')} <span class="text-grad-brand">{t('templates.titleAccent')}</span>
+      </h1>
+      <p class="mt-5 text-lg text-slate-400">{t('templates.sub')}</p>
+    </div>
+
+    <TemplateTabs current="/templates/landing-pages" />
+
+    {templates.length === 0 ? (
+      <div class="text-center py-20">
+        <p class="text-slate-400 text-sm">{t('templates.noTemplates')}</p>
+      </div>
+    ) : (
+      <div data-templates data-per-page={PER_PAGE} data-last-page={lastPage} data-total={templates.length}>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {templates.map((template, index) => (
+            <div class="bento lift group overflow-hidden" data-card data-index={index} hidden={index >= PER_PAGE}>
+              <div class="relative aspect-[4/3] bg-ink-800 overflow-hidden">
+                {template.preview_image_url ? (
+                  <img
+                    src={template.preview_image_url}
+                    alt={template.title}
+                    loading="lazy"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center text-slate-600 text-sm">
+                    {t('templates.noPreview')}
+                  </div>
+                )}
+                <div class="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
+              <div class="p-4 sm:p-5">
+                <h3 class="font-display text-white text-base sm:text-lg font-bold truncate">{template.title}</h3>
+                {template.short_description && (
+                  <p class="mt-1.5 text-sm text-slate-400 line-clamp-2">{template.short_description}</p>
+                )}
+                {template.urls?.template_url && (
+                  <div class="mt-4 flex justify-end">
+                    <a
+                      href={template.urls.template_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-glow transition-colors"
+                    >
+                      {t('templates.viewTemplate')}
+                      <Icon name="ArrowRight" size={14} strokeWidth={2.5} />
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {lastPage > 1 && (
+          <div class="mt-12 flex flex-col items-center gap-5">
+            <nav aria-label="Template pagination" class="inline-flex items-center gap-1.5 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-1.5 backdrop-blur-sm">
+              <button type="button" data-page-prev aria-label="Previous page" class={`${pagerBase} w-10 ${pagerIdle}`}>
+                <Icon name="ChevronLeft" size={16} strokeWidth={2.25} />
+              </button>
+              <span data-page-numbers class="contents"></span>
+              <button type="button" data-page-next aria-label="Next page" class={`${pagerBase} w-10 ${pagerIdle}`}>
+                <Icon name="ChevronRight" size={16} strokeWidth={2.25} />
+              </button>
+            </nav>
+            <p class="text-xs font-mono text-slate-500 tracking-wide">
+              Showing <span class="text-slate-300" data-page-range></span> of
+              <span class="text-slate-300">{templates.length}</span>
+            </p>
+          </div>
+        )}
+      </div>
+    )}
+
+    <div class="mt-16 sm:mt-24 relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 sm:p-12 text-center">
+      <div class="absolute -inset-6 -z-10 rounded-3xl bg-brand/10 blur-3xl"></div>
+      <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-brand/20 bg-brand/10">
+        <span class="h-2.5 w-2.5 rounded-full bg-brand pulse-dot"></span>
+      </div>
+      <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-white">
+        {t('templates.cta.heading')} <span class="text-grad-brand">{t('templates.cta.headingAccent')}</span>?
+      </h2>
+      <p class="mt-3 text-slate-400 max-w-md mx-auto">{t('templates.cta.sub')}</p>
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href={`${SHOP_PANEL_URL}/register`}
+          class="btn-brand inline-flex items-center gap-2 h-11 px-6 rounded-xl font-display font-bold text-sm transition-all hover:scale-105"
+        >
+          {t('templates.cta.createShop')}
+        </a>
+        <a
+          href={localizePath('/demo', lang)}
+          class="inline-flex items-center gap-2 h-11 px-6 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] text-slate-200 text-sm font-display font-bold transition-all hover:scale-105"
+        >
+          {t('templates.cta.requestDemo')}
+        </a>
+      </div>
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-slate-500">
+        <span>{t('templates.cta.noCreditCard')}</span>
+        <span>{t('templates.cta.freeToStart')}</span>
+        <span>{t('templates.cta.cancelAnytime')}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Every template is in the DOM; pagination just shows a 12-card window,
+  // keeping the original's pager UI without a round-trip per page.
+  const root = document.querySelector<HTMLElement>('[data-templates]');
+  if (root) {
+    const perPage = Number(root.dataset.perPage);
+    const lastPage = Number(root.dataset.lastPage);
+    const total = Number(root.dataset.total);
+    const cards = root.querySelectorAll<HTMLElement>('[data-card]');
+    const numbers = root.querySelector<HTMLElement>('[data-page-numbers]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-page-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-page-next]');
+    const range = root.querySelector<HTMLElement>('[data-page-range]');
+
+    const BASE = 'inline-flex items-center justify-center h-10 min-w-10 rounded-lg text-sm font-mono';
+    const IDLE =
+      'border border-white/10 bg-white/[0.03] text-slate-300 transition-all hover:text-white hover:bg-white/[0.06] hover:border-white/20 hover:scale-105';
+    const OFF = 'opacity-40 cursor-not-allowed hover:scale-100';
+
+    // Same elision rule as the original: first, last, and neighbours of current.
+    const pageList = (current: number) => {
+      const kept: number[] = [];
+      for (let p = 1; p <= lastPage; p++) {
+        if (p === 1 || p === lastPage || Math.abs(p - current) <= 1) kept.push(p);
+      }
+      const out: (number | '...')[] = [];
+      let last = 0;
+      for (const p of kept) {
+        if (p - last === 2) out.push(last + 1);
+        else if (p - last > 2) out.push('...');
+        out.push(p);
+        last = p;
+      }
+      return out;
+    };
+
+    let current = 1;
+
+    const render = () => {
+      const start = (current - 1) * perPage;
+      const end = start + perPage;
+      cards.forEach((card, i) => card.toggleAttribute('hidden', i < start || i >= end));
+
+      if (range) range.textContent = `${start + 1}–${Math.min(end, total)}`;
+
+      prev?.classList.toggle('opacity-40', current === 1);
+      prev?.classList.toggle('cursor-not-allowed', current === 1);
+      next?.classList.toggle('opacity-40', current === lastPage);
+      next?.classList.toggle('cursor-not-allowed', current === lastPage);
+      if (prev) prev.disabled = current === 1;
+      if (next) next.disabled = current === lastPage;
+
+      if (!numbers) return;
+      numbers.textContent = '';
+      for (const entry of pageList(current)) {
+        if (entry === '...') {
+          const gap = document.createElement('span');
+          gap.className = `${BASE} text-slate-600`;
+          gap.setAttribute('aria-hidden', 'true');
+          gap.textContent = '…';
+          numbers.append(gap);
+        } else if (entry === current) {
+          const active = document.createElement('span');
+          active.setAttribute('aria-current', 'page');
+          active.className = `btn-brand ${BASE} px-3.5 font-bold`;
+          active.textContent = String(entry);
+          numbers.append(active);
+        } else {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `${BASE} px-3.5 ${IDLE}`;
+          btn.setAttribute('aria-label', `Page ${entry}`);
+          btn.textContent = String(entry);
+          btn.addEventListener('click', () => go(entry));
+          numbers.append(btn);
+        }
+      }
+    };
+
+    const go = (page: number) => {
+      if (page < 1 || page > lastPage || page === current) return;
+      current = page;
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    prev?.addEventListener('click', () => go(current - 1));
+    next?.addEventListener('click', () => go(current + 1));
+    render();
+  }
+</script>

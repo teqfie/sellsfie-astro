@@ -1,0 +1,102 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { toLang, localizePath } from '../i18n';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Root-relative path of this page, used to build the hreflang alternates. */
+  path?: string;
+}
+
+const {
+  title,
+  description = 'The first true Business OS for Bangladesh. Manage inventory, automate couriers, and track every Taka from one beautiful dashboard.',
+  path = '/',
+} = Astro.props;
+
+const lang = toLang(Astro.currentLocale);
+const site = Astro.site ?? new URL('https://sellsfie.com');
+const canonical = new URL(localizePath(path, lang), site).href;
+---
+
+<html lang={lang === 'bn' ? 'bn-BD' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL(path, site).href} />
+    <link rel="alternate" hreflang="bn" href={new URL(localizePath(path, 'bn'), site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(path, site).href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {/* Applied before first paint so a light-theme visitor never sees a dark flash. */}
+    <script is:inline>
+      try {
+        if (localStorage.getItem('sellsfie-theme') === 'light') {
+          document.documentElement.setAttribute('data-boot-theme', 'light');
+        }
+      } catch (e) {}
+    </script>
+    <style>
+      html[data-boot-theme='light'] body {
+        color: #0b1220;
+        background: radial-gradient(1100px 600px at 18% -10%, #38ce001a, #0000 60%),
+          radial-gradient(900px 500px at 100% 20%, #38ce000f, #0000 60%), #f6f7f4;
+      }
+    </style>
+  </head>
+  <body>
+    <Nav path={path} />
+    <main>
+      <slot />
+    </main>
+    <Footer path={path} />
+
+    <script is:inline>
+      // Theme: dark is the default, "light" is remembered per browser.
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('sellsfie-theme');
+        } catch (e) {}
+        if (stored === 'light') document.body.classList.add('theme-light');
+        document.documentElement.removeAttribute('data-boot-theme');
+
+        function paint(isLight) {
+          document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+            btn.title = isLight ? 'Switch to dark' : 'Switch to light';
+            var moon = btn.querySelector('[data-icon="moon"]');
+            var sun = btn.querySelector('[data-icon="sun"]');
+            if (!moon || !sun) return;
+            moon.className = 'absolute transition-all duration-300 ' +
+              (isLight ? 'opacity-0 rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100');
+            sun.className = 'absolute transition-all duration-300 ' +
+              (isLight ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50');
+          });
+        }
+
+        paint(document.body.classList.contains('theme-light'));
+
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var isLight = document.body.classList.toggle('theme-light');
+            try {
+              localStorage.setItem('sellsfie-theme', isLight ? 'light' : 'dark');
+            } catch (e) {}
+            paint(isLight);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+---
+import { useTranslations, toLang, localizePath } from '../i18n';
+
+interface Props {
+  /** Root-relative path of the tab that should read as active. */
+  current: string;
+}
+
+const { current } = Astro.props;
+const lang = toLang(Astro.currentLocale);
+const { t } = useTranslations(lang);
+
+const tabs = [
+  { href: '/templates/landing-pages', label: t('templates.tabs.landingPages') },
+  { href: '/templates/website-template', label: t('templates.tabs.websiteTemplates') },
+];
+---
+
+<div class="flex justify-center mb-12 sm:mb-16">
+  <div class="inline-flex gap-1.5 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-1.5 backdrop-blur-sm">
+    {tabs.map((tab) => (
+      <a
+        href={localizePath(tab.href, lang)}
+        class={`inline-flex items-center h-10 px-4 sm:px-5 rounded-xl text-sm font-semibold transition-all ${
+          tab.href === current
+            ? 'btn-brand'
+            : 'text-slate-300 hover:text-white hover:bg-white/[0.06] hover:scale-105'
+        }`}
+      >
+        {tab.label}
+      </a>
+    ))}
+  </div>
+</div>

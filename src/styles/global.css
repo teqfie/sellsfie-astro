@@ -1,0 +1,253 @@
+@import '@fontsource-variable/plus-jakarta-sans';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource/noto-sans-bengali/400.css';
+@import '@fontsource/noto-sans-bengali/500.css';
+@import '@fontsource/noto-sans-bengali/600.css';
+@import '@fontsource/noto-sans-bengali/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Tailwind's display utilities (flex/grid/block) out-rank the browser's
+     `[hidden] { display: none }`, so islands toggled via the hidden attribute
+     would stay visible. Force the attribute to win. */
+  [hidden] {
+    display: none !important;
+  }
+
+  :root {
+    /* Bengali faces are listed after the Latin ones so Latin glyphs keep the
+       original design and only Bangla text falls through to Noto. */
+    --font-sans: 'Inter Variable', 'Noto Sans Bengali', system-ui, sans-serif;
+    --font-display: 'Plus Jakarta Sans Variable', 'Noto Sans Bengali', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono Variable', 'Noto Sans Bengali', ui-monospace, monospace;
+  }
+
+  html,
+  body {
+    background: #06080a;
+    transition: background-color 0.3s, color 0.3s;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: #e6eaf0;
+    -webkit-font-smoothing: antialiased;
+    background: radial-gradient(1100px 600px at 18% -10%, #38ce001a, #0000 60%),
+      radial-gradient(900px 500px at 100% 20%, #38ce000d, #0000 60%), #06080a;
+  }
+
+  body.theme-light {
+    color: #0b1220;
+    background: radial-gradient(1100px 600px at 18% -10%, #38ce001a, #0000 60%),
+      radial-gradient(900px 500px at 100% 20%, #38ce000f, #0000 60%), #f6f7f4;
+  }
+
+  html:has(body.theme-light) {
+    background: #f6f7f4;
+  }
+}
+
+@layer components {
+  /* The original ships this alongside the font-family rule. It lives in the
+     components layer so `tracking-*` utilities still win, as they do there. */
+  .font-display {
+    letter-spacing: -0.02em;
+  }
+
+  .glass {
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    backdrop-filter: saturate(160%) blur(18px);
+    background-color: #0b0f148c;
+    border: 1px solid #ffffff0f;
+  }
+
+  .bento {
+    background: linear-gradient(#0f141b 0%, #0b1015 100%);
+    border: 1px solid #ffffff0f;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bento::before {
+    content: '';
+    pointer-events: none;
+    background: radial-gradient(600px 200px at 80% -10%, #38ce0012, #0000 60%);
+    position: absolute;
+    inset: 0;
+  }
+
+  .btn-brand {
+    color: #04150a;
+    background: linear-gradient(#4be000 0%, #38ce00 60%, #2eb300 100%);
+    box-shadow: inset 0 0 0 1px #5bff1a59, 0 8px 30px -6px #38ce008c,
+      0 0 60px -10px #38ce0073;
+  }
+
+  .btn-brand:hover {
+    filter: brightness(1.05);
+  }
+
+  .text-grad-brand {
+    background: linear-gradient(#fff 0%, #c8ffb3 80%);
+    color: #0000;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(90deg, #ffffff09 1px, #0000 1px),
+      linear-gradient(#ffffff09 1px, #0000 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(at top, #000 30%, #0000 75%);
+    mask-image: radial-gradient(at top, #000 30%, #0000 75%);
+  }
+
+  .ring-brand-glow {
+    box-shadow: 0 0 0 1px #38ce0059, 0 0 40px -8px #38ce0073;
+  }
+
+  .lift {
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s, background 0.25s;
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fade-x {
+    -webkit-mask-image: linear-gradient(90deg, #0000, #000 8% 92%, #0000);
+    mask-image: linear-gradient(90deg, #0000, #000 8% 92%, #0000);
+  }
+
+  .polaroid {
+    color: #1a1a1a;
+    background: #f4f1ea;
+    transform: rotate(-3deg);
+    box-shadow: 0 30px 80px -20px #0009, 0 0 0 1px #ffffff0a;
+  }
+}
+
+@layer utilities {
+  .marquee-track {
+    animation: marquee 38s linear infinite;
+  }
+  .blip {
+    animation: blip 1.6s ease-in-out infinite;
+  }
+  .aura {
+    animation: aura 18s linear infinite;
+  }
+  .pulse-dot {
+    animation: pulseDot 1.8s ease-out infinite;
+  }
+}
+
+/* ---- Light theme overrides (ported 1:1 from the original build) ---- */
+body.theme-light .grid-bg {
+  background-image: linear-gradient(90deg, #0000000d 1px, #0000 1px),
+    linear-gradient(#0000000d 1px, #0000 1px);
+}
+body.theme-light .glass {
+  background-color: #fff9;
+  border: 1px solid #0000000f;
+  box-shadow: 0 10px 40px -20px #0000002e;
+}
+body.theme-light .bento {
+  background: linear-gradient(#fff 0%, #fbfbf8 100%);
+  border-color: #0000000f;
+  box-shadow: inset 0 1px #fff9, 0 20px 40px -28px #0f1e0f2e;
+}
+body.theme-light .bento::before {
+  background: radial-gradient(600px 200px at 80% -10%, #38ce001a, #0000 60%);
+}
+body.theme-light .btn-brand {
+  box-shadow: inset 0 0 0 1px #2eb30080, 0 8px 24px -8px #38ce008c,
+    0 0 36px -10px #38ce0066;
+}
+body.theme-light .text-grad-brand {
+  background: linear-gradient(#0b1220 0%, #2eb300 95%);
+  color: #0000;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+body.theme-light .text-white {
+  color: #0b1220 !important;
+}
+body.theme-light .text-slate-300,
+body.theme-light .text-slate-300\/90 {
+  color: #46505c !important;
+}
+body.theme-light .text-slate-400 {
+  color: #5b6573 !important;
+}
+body.theme-light .text-slate-500 {
+  color: #6b7484 !important;
+}
+body.theme-light .text-slate-600 {
+  color: #8b93a1 !important;
+}
+body.theme-light .text-slate-200 {
+  color: #1a2230 !important;
+}
+body.theme-light .border-white\/5,
+body.theme-light .border-white\/10 {
+  border-color: #00000014 !important;
+}
+body.theme-light .divide-white\/5 > * + * {
+  border-color: #0000000f !important;
+}
+body.theme-light .bg-white\/5 {
+  background-color: #0f141c0a !important;
+}
+body.theme-light .bg-white\/\[0\.02\] {
+  background-color: #0f141c08 !important;
+}
+
+body.theme-light .bg-white\/\[0\.03\] { background-color: #0f141c0a !important; }
+body.theme-light .bg-white\/\[0\.06\] { background-color: #0f141c0f !important; }
+body.theme-light .bg-white\/\[0\.07\] { background-color: #0f141c12 !important; }
+body.theme-light .bg-white\/10 { background-color: #0f141c14 !important; }
+body.theme-light .bg-white\/20 { background-color: #0f141c29 !important; }
+body.theme-light .bg-white\/30 { background-color: #0f141c38 !important; }
+body.theme-light .bg-black\/40 { background-color: #f1efe8 !important; }
+body.theme-light .bg-\[\#06080A\] { background-color: #fff !important; }
+body.theme-light .bg-\[\#08090C\]\/60 { background-color: #fff9 !important; }
+body.theme-light .bg-\[\#0B0F14\] { background-color: #fff !important; }
+body.theme-light .hover\:bg-white\/5:hover { background-color: #0f141c0d !important; }
+body.theme-light .hover\:bg-white\/\[0\.06\]:hover { background-color: #0f141c0f !important; }
+body.theme-light .hover\:bg-white\/\[0\.07\]:hover { background-color: #0f141c14 !important; }
+body.theme-light .ring-1.ring-white\/5 { --tw-ring-color: #0000000f; }
+body.theme-light .from-\[\#0F1A12\] { --tw-gradient-from: #f4fbef !important; --tw-gradient-to: #f4fbef00 !important; }
+body.theme-light .to-\[\#0B0F0C\] { --tw-gradient-to: #fbfff7 !important; }
+body.theme-light h1.text-white,
+body.theme-light h2.text-white,
+body.theme-light h3.text-white,
+body.theme-light h4.text-white { color: #0b1220 !important; }
+body.theme-light .bg-brand\/5 { background-color: #38ce0012 !important; }
+body.theme-light .bg-brand\/10 { background-color: #38ce001f !important; }
+body.theme-light .bg-brand\/15 { background-color: #38ce0029 !important; }
+body.theme-light .from-brand\/15 { --tw-gradient-from: #38ce0029 !important; }
+body.theme-light .to-brand\/5 { --tw-gradient-to: #38ce000f !important; }
+body.theme-light .polaroid { box-shadow: 0 30px 60px -25px #00000040, 0 0 0 1px #0000000d; }
+body.theme-light input::placeholder { color: #6b7484; }
+
+/* Logo swaps with the theme */
+.theme-logo-light,
+body.theme-light .theme-logo-dark { display: none; }
+body.theme-light .theme-logo-light { display: inline-block; }

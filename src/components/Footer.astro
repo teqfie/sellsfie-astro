@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations, toLang, localizePath, languages } from '../i18n';
+
+interface Props {
+  path: string;
+}
+
+const { path } = Astro.props;
+const lang = toLang(Astro.currentLocale);
+const { t, tList } = useTranslations(lang);
+
+const cols = tList<{ h: string; links: string[] }>('footer.cols');
+---
+
+<footer class="border-t border-white/5 mt-16">
+  <div class="max-w-6xl mx-auto px-5 py-16">
+    <div class="grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-4">
+        <img src="/assets/sellsfie-logo-white.png" alt="Sellsfie" class="h-7 w-auto theme-logo-dark" width="1660" height="346" />
+        <img src="/assets/sellsfie-logo.png" alt="Sellsfie" class="h-7 w-auto theme-logo-light" width="1660" height="348" />
+        <p class="mt-4 text-sm text-slate-400 max-w-xs">{t('footer.tagline')}</p>
+        <div class="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-slate-400">
+          <span class="h-1.5 w-1.5 rounded-full bg-brand pulse-dot"></span>
+          {t('footer.status')}
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-sm">
+        {cols.map((col) => (
+          <div>
+            <div class="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">{col.h}</div>
+            <ul class="mt-3 space-y-2">
+              {col.links.map((link) => (
+                <li>
+                  <a href="#" class="text-slate-300 hover:text-white transition-colors">{link}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-14 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="text-xs text-slate-500 font-mono">{t('footer.copy')}</div>
+      <div class="text-sm text-slate-400 inline-flex items-center gap-2">
+        {t('footer.built')}
+        <Icon name="Heart" size={14} class="text-brand" />
+      </div>
+      <div class="flex items-center gap-2">
+        {languages.map((l) => (
+          <a
+            href={localizePath(path, l.code)}
+            class={`h-7 px-2.5 rounded-md text-xs inline-flex items-center ${
+              lang === l.code ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            {l.short}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

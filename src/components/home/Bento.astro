@@ -1,0 +1,195 @@
+---
+import Icon from '../Icon.astro';
+import { useTranslations, toLang, formatNumber } from '../../i18n';
+
+const lang = toLang(Astro.currentLocale);
+const { t, tList } = useTranslations(lang);
+
+const logisticsStages = tList<string>('bento.logistics.stages');
+const cities = tList<{ name: string; stock: number; cap: number; sku: string }>('bento.warehouse.cities');
+---
+
+<section id="features" class="py-14 sm:py-24">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="max-w-2xl">
+      <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-brand">{t('bento.eyebrow')}</div>
+      <h2 class="mt-3 font-display text-4xl sm:text-5xl font-extrabold text-white">{t('bento.title')}</h2>
+      <p class="mt-4 text-slate-400">{t('bento.sub')}</p>
+    </div>
+
+    <div class="mt-12 grid lg:grid-cols-4 lg:auto-rows-[260px] gap-5">
+      {/* Logistics card — the interactive dispatch demo */}
+      <div class="bento p-7 sm:p-9 lg:col-span-2 lg:row-span-2 min-h-[360px] flex flex-col" data-dispatch>
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-brand">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand pulse-dot"></span>
+              {t('bento.logistics.eyebrow')}
+            </div>
+            <h3 class="mt-3 font-display text-3xl sm:text-4xl font-extrabold text-white">
+              {t('bento.logistics.title')}
+            </h3>
+            <p class="mt-2 text-slate-400 max-w-md">{t('bento.logistics.sub')}</p>
+          </div>
+          <Icon name="Truck" size={28} class="text-slate-500" />
+        </div>
+
+        <div class="mt-auto pt-8">
+          <div class="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+            <div class="flex items-center justify-between text-xs text-slate-500 font-mono mb-4">
+              <span>{t('bento.logistics.order')}</span>
+              <span>{t('bento.logistics.addr')}</span>
+            </div>
+
+            <div class="flex items-center justify-center min-h-[64px]">
+              <button
+                type="button"
+                data-dispatch-btn
+                class="btn-brand inline-flex items-center gap-2 h-11 px-5 rounded-xl font-display font-bold text-sm transition-all hover:scale-105 disabled:opacity-90"
+              >
+                <span data-dispatch-idle class="inline-flex items-center gap-2">
+                  <Icon name="Truck" size={15} strokeWidth={2.25} />
+                  {t('bento.logistics.send')}
+                </span>
+                <span data-dispatch-sending hidden class="inline-flex items-center gap-2">
+                  <span class="h-3.5 w-3.5 rounded-full border-2 border-[#04150A]/30 border-t-[#04150A] animate-spin"></span>
+                  {t('bento.logistics.sending')}
+                </span>
+              </button>
+
+              <div
+                data-dispatch-result
+                hidden
+                class="flex items-center gap-3 rounded-xl border border-brand/40 bg-brand/10 px-4 py-2.5"
+              >
+                <span class="grid place-items-center h-6 w-6 rounded-full bg-brand text-[#04150A]">
+                  <Icon name="Check" size={14} strokeWidth={3} />
+                </span>
+                <div class="leading-tight">
+                  <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-brand">
+                    {t('bento.logistics.tracking')}
+                  </div>
+                  <div class="font-mono text-white text-sm">#PP-12345-BD</div>
+                </div>
+                <span class="text-xs text-slate-400 ml-2">{t('bento.logistics.eta')}</span>
+              </div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-4 gap-1.5">
+              {logisticsStages.map((stage, index) => (
+                <div class="space-y-1">
+                  <div data-stage-bar={index} class="h-1 rounded-full transition-all duration-500 bg-white/10"></div>
+                  <div data-stage-label={index} class="text-[10px] font-mono transition-colors duration-300 text-slate-600">
+                    {stage}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="mt-3 flex items-center gap-2 text-[11px] font-mono text-slate-500">
+            <span>{t('bento.logistics.tryIt')}</span>
+            <span class="text-slate-400">{t('bento.logistics.tryHint')}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Warehouse card */}
+      <div class="bento p-7 lg:col-span-2 lg:row-span-2 min-h-[360px]">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-slate-400">
+              <Icon name="Warehouse" size={12} /> {t('bento.warehouse.eyebrow')}
+            </div>
+            <h3 class="mt-3 font-display text-2xl font-extrabold text-white">{t('bento.warehouse.title')}</h3>
+            <p class="mt-1.5 text-sm text-slate-400 max-w-md">{t('bento.warehouse.sub')}</p>
+          </div>
+        </div>
+
+        <div class="mt-5 space-y-2.5">
+          {cities.map((city) => (
+            <div class="flex items-center gap-4 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
+              <div class="flex items-center gap-3 w-32">
+                <span class="h-2 w-2 rounded-full bg-brand pulse-dot"></span>
+                <div>
+                  <div class="text-white font-semibold leading-none">{city.name}</div>
+                  <div class="text-[10px] font-mono text-slate-500 mt-1">{city.sku}</div>
+                </div>
+              </div>
+              <div class="flex-1 h-1.5 rounded-full bg-white/5 overflow-hidden">
+                <div
+                  class="h-full bg-brand"
+                  style={`width:${100 * city.cap}%; box-shadow: 0 0 8px rgba(56,206,0,0.5);`}
+                >
+                </div>
+              </div>
+              <div class="text-right tabular-nums w-16">
+                <div class="text-white font-display font-bold">{formatNumber(city.stock, lang)}</div>
+                <div class="text-[10px] font-mono text-slate-500">{t('bento.warehouse.units')}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Dispatch demo: idle -> sending -> created -> picked -> transit -> delivered -> idle,
+  // with the same step delays as the original.
+  const root = document.querySelector<HTMLElement>('[data-dispatch]');
+  if (root) {
+    const btn = root.querySelector<HTMLButtonElement>('[data-dispatch-btn]');
+    const idle = root.querySelector<HTMLElement>('[data-dispatch-idle]');
+    const sending = root.querySelector<HTMLElement>('[data-dispatch-sending]');
+    const result = root.querySelector<HTMLElement>('[data-dispatch-result]');
+    const bars = root.querySelectorAll<HTMLElement>('[data-stage-bar]');
+    const labels = root.querySelectorAll<HTMLElement>('[data-stage-label]');
+
+    type State = 'idle' | 'sending' | 'created' | 'picked' | 'transit' | 'delivered';
+    const next: Record<string, { next: State; delay: number }> = {
+      sending: { next: 'created', delay: 900 },
+      created: { next: 'picked', delay: 1200 },
+      picked: { next: 'transit', delay: 1200 },
+      transit: { next: 'delivered', delay: 1200 },
+      delivered: { next: 'idle', delay: 3000 },
+    };
+    const order: State[] = ['created', 'picked', 'transit', 'delivered'];
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const render = (state: State) => {
+      const stageIndex = order.indexOf(state);
+      const dispatched = stageIndex >= 0;
+
+      btn?.toggleAttribute('hidden', dispatched);
+      result?.toggleAttribute('hidden', !dispatched);
+      if (btn) btn.disabled = state === 'sending';
+      idle?.toggleAttribute('hidden', state === 'sending');
+      sending?.toggleAttribute('hidden', state !== 'sending');
+
+      bars.forEach((bar, i) => {
+        const on = dispatched && i <= stageIndex;
+        bar.classList.toggle('bg-brand', on);
+        bar.classList.toggle('bg-white/10', !on);
+        bar.style.boxShadow = on ? '0 0 8px rgba(56,206,0,0.6)' : '';
+      });
+      labels.forEach((label, i) => {
+        const on = dispatched && i <= stageIndex;
+        label.classList.toggle('text-slate-300', on);
+        label.classList.toggle('text-slate-600', !on);
+      });
+    };
+
+    const go = (state: State) => {
+      render(state);
+      clearTimeout(timer);
+      const step = next[state];
+      if (step) timer = setTimeout(() => go(step.next), step.delay);
+    };
+
+    btn?.addEventListener('click', () => go('sending'));
+    render('idle');
+  }
+</script>

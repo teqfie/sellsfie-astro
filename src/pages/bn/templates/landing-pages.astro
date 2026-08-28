@@ -1,0 +1,10 @@
+---
+import Base from '../../../layouts/Base.astro';
+import TemplatesPage from '../../../components/TemplatesPage.astro';
+import { useTranslations } from '../../../i18n';
+
+const { t } = useTranslations('bn');
+---
+<Base title={`${t('templates.badge')} — Sellsfie`} path="/templates/landing-pages">
+  <TemplatesPage />
+</Base>

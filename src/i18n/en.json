@@ -1,0 +1,747 @@
+{
+  "nav": {
+    "links": {
+      "templates": "Templates",
+      "features": "Features",
+      "integrations": "Integrations",
+      "pricing": "Pricing",
+      "cases": "Case Studies"
+    },
+    "login": "Login",
+    "trialFull": "Schedule a Demo",
+    "trialShort": "Schedule a Demo",
+    "toggleTheme": "Toggle theme",
+    "darkSwitch": "Switch to dark",
+    "lightSwitch": "Switch to light",
+    "changeLang": "Change language",
+    "toggleMenu": "Toggle menu"
+  },
+  "hero": {
+    "betaTag": "v1.0 · Now in Public Beta",
+    "title1": "Your Business,",
+    "title2": "Unified.",
+    "sub": "The first true Business OS for Bangladesh. Manage inventory, automate couriers, and track every Taka from one beautiful dashboard.",
+    "ctaPrimary": "Launch Your Store",
+    "ctaDemo": "Watch Demo",
+    "check1": "14-day free trial",
+    "check2": "No card required",
+    "dashboardPath": "shop.sellsfie.com / dashboard",
+    "tilesRevenue": "Today's Revenue",
+    "tilesOrders": "Orders",
+    "tilesRefunds": "Refunds",
+    "salesTitle": "Sales · Last 10 days",
+    "salesNet": "Net",
+    "salesGross": "Gross",
+    "recentOrders": "Recent Orders",
+    "live": "LIVE",
+    "liveStock": "Live Stock",
+    "capacity": "CAPACITY · 64%",
+    "orders": [
+      {
+        "id": "#A-2841",
+        "name": "Rumana K.",
+        "amt": "৳1,240",
+        "city": "Dhaka"
+      },
+      {
+        "id": "#A-2840",
+        "name": "Tareq H.",
+        "amt": "৳890",
+        "city": "CTG"
+      },
+      {
+        "id": "#A-2839",
+        "name": "Sumi A.",
+        "amt": "৳3,450",
+        "city": "Jashore"
+      }
+    ],
+    "stocks": [
+      {
+        "sku": "TS-BLK-M",
+        "name": "Black Tee · M",
+        "qty": 142,
+        "trend": "up"
+      },
+      {
+        "sku": "HD-GRY-L",
+        "name": "Grey Hoodie · L",
+        "qty": 38,
+        "trend": "down"
+      },
+      {
+        "sku": "CP-NVY-S",
+        "name": "Navy Cap · S",
+        "qty": 86,
+        "trend": "up"
+      }
+    ]
+  },
+  "trust": {
+    "backbonePre": "Integration with top-tier providers",
+    "backboneNum": "",
+    "backbonePost": "",
+    "tags": {
+      "Courier": "Courier",
+      "Logistics": "Logistics",
+      "Wallet": "Wallet",
+      "Gateway": "Gateway",
+      "Ledger": "Ledger"
+    }
+  },
+  "bento": {
+    "eyebrow": "Core features",
+    "title": "Everything that moves your business — in one place.",
+    "sub": "Stitched together for the way Bangladeshi commerce actually runs. No bolt-ons. No CSV gymnastics.",
+    "logistics": {
+      "eyebrow": "Logistics",
+      "title": "One-Click Logistics.",
+      "sub": "Dispatch any order to your courier of choice in a single tap. We handle the API, the AWB, the tracking link.",
+      "order": "ORDER · #A-2841",
+      "addr": "৳1,240 · Dhaka → Mirpur 10",
+      "sending": "Sending…",
+      "send": "Send to Pathao",
+      "tracking": "Tracking",
+      "eta": "ETA · Today, 6 PM",
+      "stages": [
+        "Created",
+        "Picked",
+        "In transit",
+        "Delivered"
+      ],
+      "tryIt": "Try it →",
+      "tryHint": "Click \"Send to Pathao\""
+    },
+    "warehouse": {
+      "eyebrow": "Warehousing",
+      "title": "Multi-Warehouse Mastery.",
+      "sub": "Live stock across cities. Auto-route orders to the nearest hub.",
+      "units": "UNITS",
+      "cities": [
+        {
+          "name": "Dhaka",
+          "stock": 1842,
+          "cap": 0.78,
+          "sku": "DHK-01"
+        },
+        {
+          "name": "Jashore",
+          "stock": 612,
+          "cap": 0.42,
+          "sku": "JSR-02"
+        },
+        {
+          "name": "CTG",
+          "stock": 980,
+          "cap": 0.61,
+          "sku": "CTG-03"
+        },
+        {
+          "name": "Sylhet",
+          "stock": 524,
+          "cap": 0.35,
+          "sku": "SYL-04"
+        },
+        {
+          "name": "Rajshahi",
+          "stock": 1208,
+          "cap": 0.69,
+          "sku": "RAJ-05"
+        }
+      ]
+    }
+  },
+  "features": {
+    "eyebrow": "Inside the Business OS",
+    "title": "44 features. Six workspaces. One login.",
+    "sub": "Everything a Bangladeshi merchant needs to run, count, and grow — already built.",
+    "cta": "Let's start now",
+    "ctaHint": "screens · sample data ready",
+    "hint": "Permission-aware · search · toast feedback on every mutation",
+    "cats": [
+      {
+        "id": "overview",
+        "label": "Overview",
+        "count": 2,
+        "icon": "chart",
+        "title": "Two dashboards. One source of truth.",
+        "sub": "A modern KPI dashboard for answering questions, plus a classic tree-table for auditing rows. Everything shown in BDT.",
+        "items": [
+          {
+            "h": "Analytics Dashboard",
+            "d": "Date-range presets · Sales / Customer / Stock / Revenue tiles · Orders & Profit sparklines."
+          },
+          {
+            "h": "Delivery Status donut",
+            "d": "Collapses 13 raw delivery states into 5 buckets with a per-status legend."
+          },
+          {
+            "h": "12-month Revenue stack",
+            "d": "Green earnings vs. red expenses — exposes \"good revenue / bad month\" instantly."
+          },
+          {
+            "h": "Top Products + Recent Transactions",
+            "d": "Cash account events with auto-mapped icons, ranked by gross revenue."
+          },
+          {
+            "h": "Classic tree-table",
+            "d": "Expandable rows reveal full order objects — answer \"where is order 5421?\" in two clicks."
+          },
+          {
+            "h": "Permission-aware widgets",
+            "d": "Tiles vanish entirely for roles without `Sales Report View` — no greyed-out teases."
+          }
+        ]
+      },
+      {
+        "id": "sales",
+        "label": "Sales",
+        "count": 8,
+        "icon": "cart",
+        "title": "From phone-call to dispatched parcel.",
+        "sub": "The order workhorse: capture social-commerce sales, manage them in bulk, and print a thermal or A4 invoice in one click.",
+        "items": [
+          {
+            "h": "Make Order",
+            "d": "Phone-search auto-creates customers · variant-aware picker · COD / Bkash / Nagad / SSL Commerze / Cash · live totals."
+          },
+          {
+            "h": "Order Management",
+            "d": "Quick tabs (Paid / Delivered / Unpaid / Partial) · search · bulk courier assignment · bulk invoices."
+          },
+          {
+            "h": "Order Detail",
+            "d": "Editable status dropdowns · payment history · billing + shipping addresses · customer order history — all on one page."
+          },
+          {
+            "h": "Edit Order",
+            "d": "Pre-filled OrderForm · payment method locked once cleared · live total recalculation."
+          },
+          {
+            "h": "Order History",
+            "d": "Tree-table with per-column filtering — accountants reconcile end-of-month without dev access."
+          },
+          {
+            "h": "Invoice Print",
+            "d": "A4 ↔ POS toggle · prints multiple orders from `?orderIds=1,2,3` · default format reads from Shop Settings."
+          },
+          {
+            "h": "Customers",
+            "d": "Lifetime spend per row · Tag column drives VIP / wholesale / churned segments · search."
+          },
+          {
+            "h": "Customer Detail",
+            "d": "8 clickable stat tiles drill into pre-filtered Order Management · addresses + 5-row order history."
+          }
+        ]
+      },
+      {
+        "id": "catalog",
+        "label": "Catalog",
+        "count": 10,
+        "icon": "box",
+        "title": "Inventory, batches, warehouses — one schema.",
+        "sub": "Variants roll up into one listing. Batches power expiry. Damage and Return pages keep shrinkage honest.",
+        "items": [
+          {
+            "h": "Categories",
+            "d": "3-level tree (Category → Sub → Sub-Sub) · status toggle archives seasonal collections."
+          },
+          {
+            "h": "All Products",
+            "d": "Variant-aware stock column · status badges · sortable by date / price / stock / popularity."
+          },
+          {
+            "h": "Add Product",
+            "d": "Simple or Variation type · Cost vs. Unit price · low-stock alert threshold · drag-drop gallery (max 2MB)."
+          },
+          {
+            "h": "Edit Product",
+            "d": "Locked SKUs prevent duplicates · per-image delete · per-variant Add Stock modal."
+          },
+          {
+            "h": "View Product",
+            "d": "4 stock tiles (Current / Return / Sold / Damage) · Stock History gated on `stock.view`."
+          },
+          {
+            "h": "Batches",
+            "d": "Manufacturing + expiry dates per lot · mandatory for pharmacy, food, cosmetics merchants."
+          },
+          {
+            "h": "Warehouse",
+            "d": "Multi-location with manager contacts · Transfer Products modal logs inter-warehouse moves."
+          },
+          {
+            "h": "Add Stock (bulk)",
+            "d": "One submit · per-variant warehouse routing · supplier PO reference · auto-cache invalidation."
+          },
+          {
+            "h": "Damage Log",
+            "d": "Every write-off logged with reason + warehouse — spot pattern losses across locations."
+          },
+          {
+            "h": "Returns Workflow",
+            "d": "4-state pipeline: Pending → Approved → Completed / Rejected · partial refunds split Returned vs Non-Return items."
+          }
+        ]
+      },
+      {
+        "id": "marketing",
+        "label": "Marketing",
+        "count": 3,
+        "icon": "spark",
+        "title": "Built for Facebook-first commerce.",
+        "sub": "A landing-page library with templates, SEO fields, and one-click duplication of winners.",
+        "items": [
+          {
+            "h": "Landing Page Library",
+            "d": "Card grid · sort Newest / Oldest · filter Imported vs Created · search."
+          },
+          {
+            "h": "Page Builder",
+            "d": "Two-column form + template gallery · multi-product picker shows live qty · SEO title + description required."
+          },
+          {
+            "h": "Edit & A/B",
+            "d": "Pre-populated builder · per-image remove · spin variants of a winning page in minutes."
+          }
+        ]
+      },
+      {
+        "id": "finance",
+        "label": "Finance",
+        "count": 10,
+        "icon": "wallet",
+        "title": "Your CFO, on call.",
+        "sub": "Wallet + real cash + business totals on one screen. Refund rate as a leading quality signal. Append-only audit log.",
+        "items": [
+          {
+            "h": "Accounting Overview",
+            "d": "6 wallet cards · 4 real-cash cards · 4 business cards · Recent Audit Log surfaces sketchy edits."
+          },
+          {
+            "h": "Transactions",
+            "d": "Type breakdown table · stat cards (Credits, Debits, Net) · view modal with diff fields."
+          },
+          {
+            "h": "Real Cash Entry",
+            "d": "Daily / Weekly / Monthly grouped bar chart · Manual entries (Cash In / Cash Out) for register reconciliation."
+          },
+          {
+            "h": "Expenses",
+            "d": "Animated category breakdown · 8 built-in buckets (refund / shipping / SMS / marketing / …) + custom."
+          },
+          {
+            "h": "Refunds",
+            "d": "Refund-rate stat · status workflow · refund code per ticket — a leading quality indicator."
+          },
+          {
+            "h": "Audit Log",
+            "d": "Append-only · stat cards (Events, Unique Users, Unique IPs) · click any row for full event payload."
+          },
+          {
+            "h": "Sales Report",
+            "d": "Overview + Details tabs · Sales-by-Status horizontal bar · Top 5 deals · combo column+line chart."
+          },
+          {
+            "h": "Stock Report",
+            "d": "8 tiles (Available, In, Out, Sold, Damage, Return, Low-Stock, Stock Value) · multi-axis line + per-SKU details."
+          },
+          {
+            "h": "Product Report",
+            "d": "Profit % per variant · 11 time-period presets · multi-product picker · auto-relabeling sort order."
+          },
+          {
+            "h": "Customer Report",
+            "d": "Coming soon — repeat rate, lifetime value, cohort analysis (backend ready)."
+          }
+        ]
+      },
+      {
+        "id": "admin",
+        "label": "Administration",
+        "count": 11,
+        "icon": "shield",
+        "title": "Roles, integrations, payouts.",
+        "sub": "Granular permissions, server-side CAPI tracking, and self-service withdrawals — without a sales call.",
+        "items": [
+          {
+            "h": "Shop Info",
+            "d": "Manage your shop profile, business details, and branding from one place — with changes synced instantly across your dashboard."
+          },
+          {
+            "h": "Content Pages",
+            "d": "Create and update all your essential business and legal pages — including Privacy Policy, FAQ, Contact, and Refund Policy — with ease."
+          },
+          {
+            "h": "Shop Settings",
+            "d": "Stock validation toggle · partial payment % or ৳ cap · default invoice (POS / A4) · default courier."
+          },
+          {
+            "h": "Tracking & Integrations",
+            "d": "Server-side Facebook CAPI · GTM server URL · GA4 Measurement Protocol — survives cookie deprecation."
+          },
+          {
+            "h": "Courier Integration",
+            "d": "Steadfast + Pathao credential cards · webhook URL + auth-token copy-to-clipboard."
+          },
+          {
+            "h": "Agents Management",
+            "d": "Multi-role staff directory · password show/hide · onboard a packer in 90 seconds."
+          },
+          {
+            "h": "Roles Management",
+            "d": "Master Select-All · per-group toggle · 200-permission system stays manageable."
+          },
+          {
+            "h": "My Subscription",
+            "d": "Active plan + invoice history · trial-status flag · success state on."
+          },
+          {
+            "h": "Buy Subscription",
+            "d": "Plan-comparison cards in BDT · auto-redirect for already-subscribed users · checkout via SSL Commerze."
+          },
+          {
+            "h": "Earnings",
+            "d": "Total Earning · Account Balance · Growth Rate · Dues — focused alternative to full Accounting Overview."
+          },
+          {
+            "h": "Withdraw",
+            "d": "Auto-filled withdrawable balance · free-text method (bank / wallet / cheque) · max-balance guard."
+          }
+        ]
+      }
+    ]
+  },
+  "differentiator": {
+    "eyebrow": "The Business OS",
+    "title1": "More than a store.",
+    "title2": "It's your CFO.",
+    "sub": "Stop guessing. Start knowing. Sellsfie tracks expenses, refunds, and staff actions so you don't have to.",
+    "pnl": {
+      "title": "Profit & Loss",
+      "date": "· OCT 2025",
+      "auto": "AUTO-GENERATED",
+      "rows": [
+        {
+          "label": "Gross Revenue",
+          "val": "৳ 18,42,510",
+          "tone": "pos"
+        },
+        {
+          "label": "Refunds & Returns",
+          "val": "— ৳ 64,210",
+          "tone": "neg"
+        },
+        {
+          "label": "Courier Fees",
+          "val": "— ৳ 2,18,400",
+          "tone": "neg"
+        },
+        {
+          "label": "Gateway Fees",
+          "val": "— ৳ 36,820",
+          "tone": "neg"
+        },
+        {
+          "label": "Ad Spend (Meta)",
+          "val": "— ৳ 4,10,000",
+          "tone": "neg"
+        },
+        {
+          "label": "COGS",
+          "val": "— ৳ 6,12,340",
+          "tone": "neg"
+        }
+      ],
+      "netLabel": "Net Profit",
+      "netVal": "৳ 5,00,740",
+      "mom": "12.4% MoM"
+    },
+    "audit": {
+      "title": "Audit Log",
+      "sub": "· STAFF ACTIVITY",
+      "viewAll": "VIEW ALL →",
+      "logs": [
+        {
+          "who": "Rafi A.",
+          "role": "Manager",
+          "act": "changed price of",
+          "target": "Black Tee · M",
+          "detail": "৳690 → ৳750",
+          "time": "2m ago",
+          "tone": "warn"
+        },
+        {
+          "who": "Sumi K.",
+          "role": "CSR",
+          "act": "issued refund for",
+          "target": "#A-2812",
+          "detail": "৳1,240",
+          "time": "14m ago",
+          "tone": "neg"
+        },
+        {
+          "who": "System",
+          "role": "Auto",
+          "act": "auto-restocked",
+          "target": "Hoodie · L",
+          "detail": "+50 units · CTG",
+          "time": "38m ago",
+          "tone": "pos"
+        },
+        {
+          "who": "Tareq H.",
+          "role": "Warehouse",
+          "act": "split shipment",
+          "target": "#A-2799",
+          "detail": "DHK + JSR",
+          "time": "1h ago",
+          "tone": "info"
+        },
+        {
+          "who": "Rafi A.",
+          "role": "Manager",
+          "act": "edited inventory",
+          "target": "Navy Cap · S",
+          "detail": "qty 120 → 86",
+          "time": "2h ago",
+          "tone": "warn"
+        }
+      ]
+    }
+  },
+  "testimonial": {
+    "eyebrow": "Loved by founders",
+    "title": "Real merchants. Real margins.",
+    "tagline": "SELL + SELFIE = SELLSFIE",
+    "quotePre": "\"Before Sellsfie, I was tracking orders in a notebook and chasing couriers on the phone. Now everything runs from one dashboard—inventory, payments, and delivery. My team handles everything faster and more efficiently.",
+    "quoteAccent": "3× more orders",
+    "quotePost": " without any extra headcount.\"",
+    "who": "Khalid Hasan",
+    "whoTitle": "FOUNDER & CEO · BESTBIPONI · JASHORE",
+    "rating": "4.9/5",
+    "merchants": "500+ merchants",
+    "stats": [
+      {
+        "k": "৳0 → ৳85L",
+        "v": "GMV in 6 months"
+      },
+      {
+        "k": "–45%",
+        "v": "Return rate"
+      },
+      {
+        "k": "3.8×",
+        "v": "Repeat customers"
+      }
+    ]
+  },
+  "templates": {
+    "badge": "Landing Page Templates",
+    "title": "Pick a template,",
+    "titleAccent": "start selling",
+    "sub": "Browse our collection of high-converting landing page templates. Choose one, add your products, and launch in minutes.",
+    "viewTemplates": "View Templates",
+    "viewTemplate": "View template",
+    "noPreview": "No preview",
+    "noTemplates": "No templates available yet.",
+    "tabs": {
+      "landingPages": "Landing Pages",
+      "websiteTemplates": "Website Templates"
+    },
+    "cta": {
+      "heading": "Need something",
+      "headingAccent": "unique",
+      "sub": "Can't find the perfect fit? Create your shop and build a custom landing page tailored to your brand — no coding required.",
+      "createShop": "Create your shop",
+      "requestDemo": "Request a demo",
+      "noCreditCard": "No credit card required",
+      "freeToStart": "Free to start",
+      "cancelAnytime": "Cancel anytime"
+    },
+    "websiteComingSoon": {
+      "badge": "Website Templates",
+      "title": "Your whole store,",
+      "titleAccent": "one template",
+      "sub": "Complete, multi-page website templates for your brand — home, shop, product, and checkout, ready to launch.",
+      "heading": "Website Templates Demo Coming Soon",
+      "comingSub": "We're putting the finishing touches on this. Check back soon."
+    }
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "title": "Built to scale with you.",
+    "sub": "From your first hundred orders to your hundredth thousandth. No surprise fees.",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "perMonth": "/ month",
+    "custom": "Custom",
+    "mostPopular": "Most Popular",
+    "plans": [
+      {
+        "name": "Starter",
+        "tagline": "For the Hustlers.",
+        "base": 1499,
+        "cta": "Start Free",
+        "features": [
+          "200 orders / month",
+          "1 warehouse · 1 staff seat",
+          "Basic analytics & reports",
+          "Landing Page Builder ( Upto 3 pages )",
+          "Instant website with subdomain ( yourshop.sellsfie.com )",
+          "Meta CAPI · Pixel · UTM tracking",
+          "Email support"
+        ]
+      },
+      {
+        "name": "Pro",
+        "tagline": "For the Heroes.",
+        "base": 2499,
+        "cta": "Start 14-day Trial",
+        "highlight": true,
+        "badge": "Most Popular",
+        "features": [
+          "Unlimited orders",
+          "Up to 5 warehouses · 10 seats",
+          "Landing Page Builder ( Unlimited pages )",
+          "Instant website with subdomain ( yourshop.sellsfie.com )",
+          "Meta CAPI · Pixel · UTM tracking",
+          "Advanced accounting (P&L, VAT)",
+          "Priority chat & phone support"
+        ]
+      },
+      {
+        "name": "Enterprise",
+        "tagline": "For the Kings.",
+        "base": null,
+        "cta": "Talk to Sales",
+        "features": [
+          "Multi-warehouse · multi-brand",
+          "Full REST + Webhooks API",
+          "SSO · audit log retention",
+          "Dedicated account manager",
+          "On-prem migration & training",
+          "99.95% uptime SLA"
+        ]
+      }
+    ],
+    "guarantee": "30-day money-back guarantee.",
+    "guaranteeSub": "Cancel anytime, export everything.",
+    "compareAll": "Compare all features"
+  },
+  "footer": {
+    "tagline": "The Business OS for Bangladeshi commerce. One dashboard, every Taka, every order.",
+    "status": "All systems operational",
+    "cols": [
+      {
+        "h": "Product",
+        "links": [
+          "Features",
+          "Integrations",
+          "Pricing",
+          "Changelog",
+          "Status"
+        ]
+      },
+      {
+        "h": "Company",
+        "links": [
+          "About",
+          "Customers",
+          "Careers",
+          "Press kit",
+          "Contact"
+        ]
+      },
+      {
+        "h": "Resources",
+        "links": [
+          "Help center",
+          "Merchant academy",
+          "API docs",
+          "Templates",
+          "Community"
+        ]
+      },
+      {
+        "h": "Legal",
+        "links": [
+          "Terms of service",
+          "Privacy policy",
+          "Cookie policy",
+          "DPA",
+          "Trademark"
+        ]
+      }
+    ],
+    "copy": "© 2026 Sellsfie · All rights reserved.",
+    "built": "Built for Bangladesh with"
+  },
+  "signup": {
+    "title": "Start your free trial",
+    "sub": "14 days, no card required. We'll review your details and get you set up.",
+    "submit": "Create my shop",
+    "submitting": "Creating your shop…",
+    "consent": "By continuing, you agree to our terms and acknowledge we'll text you a verification code.",
+    "alreadyHave": "Already have an account? Sign in from the shop dashboard.",
+    "steps": {
+      "details": "Details",
+      "verify": "Verify",
+      "done": "Done"
+    },
+    "fields": {
+      "fullName": "Your full name",
+      "email": "Email",
+      "phone": "Phone number",
+      "businessName": "Business name"
+    },
+    "otp": {
+      "title": "Verify your phone",
+      "titleEmail": "Verify your email",
+      "sub": "Enter the 4-digit code we sent to",
+      "verify": "Verify code",
+      "verifying": "Verifying…",
+      "resend": "Resend code",
+      "resendIn": "Resend in {s}s",
+      "resent": "A new code is on the way.",
+      "changePhone": "Change phone",
+      "changeEmail": "Change email",
+      "tryEmail": "Prefer email?",
+      "tryPhone": "Prefer phone?",
+      "useEmail": "Verify with email",
+      "usePhone": "Verify with phone"
+    },
+    "success": {
+      "title": "You're on the list!",
+      "sub": "Your shop is awaiting admin approval. We'll email you the moment it's ready — usually within 24 hours.",
+      "b1": "Phone verified",
+      "b2": "Application submitted",
+      "b3": "Admin review in progress",
+      "home": "Back to home"
+    },
+    "errors": {
+      "required": "This field is required.",
+      "invalidEmail": "Enter a valid email address.",
+      "invalidPhone": "Enter a valid Bangladeshi phone number.",
+      "otpIncomplete": "Enter the full 4-digit code.",
+      "otpWrong": "That code is invalid or expired.",
+      "network": "We couldn't reach the server. Check your connection and try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "demo": {
+    "eyebrow": "Book a demo",
+    "title": "See Sellsfie in action.",
+    "sub": "Chat with our team on WhatsApp and get a 30-minute guided tour of the Business OS — built for Bangladeshi merchants.",
+    "points": [
+      "Live walkthrough of orders, inventory, and accounting",
+      "Tailored to your shop size and product mix",
+      "Get answers about pricing, courier setup, and onboarding"
+    ],
+    "cardEyebrow": "Talk to sales",
+    "cardTitle": "Reach us on WhatsApp",
+    "cardSub": "Tap the button below — we usually reply within a few minutes during business hours.",
+    "cta": "Chat on WhatsApp"
+  }
+}

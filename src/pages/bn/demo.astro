@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import DemoPage from '../../components/DemoPage.astro';
+import { useTranslations } from '../../i18n';
+
+const { t } = useTranslations('bn');
+---
+<Base title={`${t('demo.eyebrow')} — Sellsfie`} path="/demo">
+  <DemoPage />
+</Base>

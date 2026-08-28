@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/home/Hero.astro';
+import Integrations from '../../components/home/Integrations.astro';
+import Bento from '../../components/home/Bento.astro';
+import DeepDive from '../../components/home/DeepDive.astro';
+import Differentiator from '../../components/home/Differentiator.astro';
+import Testimonial from '../../components/home/Testimonial.astro';
+import Pricing from '../../components/home/Pricing.astro';
+import { useTranslations } from '../../i18n';
+
+const { t } = useTranslations('bn');
+---
+
+<Base title={`Sellsfie — ${t('hero.title1')} ${t('hero.title2')}`} description={t('hero.sub')} path="/">
+  <Hero />
+  <Integrations />
+  <Bento />
+  <DeepDive />
+  <Differentiator />
+  <Testimonial />
+  <Pricing />
+</Base>

@@ -1,0 +1,35 @@
+---
+import TemplateTabs from './TemplateTabs.astro';
+import { useTranslations, toLang } from '../i18n';
+
+const lang = toLang(Astro.currentLocale);
+const { t } = useTranslations(lang);
+---
+
+<div class="pt-28 sm:pt-40 pb-24">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300 mb-5">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand pulse-dot"></span>
+        <span>{t('templates.websiteComingSoon.badge')}</span>
+      </div>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+        {t('templates.websiteComingSoon.title')}
+        <span class="text-grad-brand">{t('templates.websiteComingSoon.titleAccent')}</span>
+      </h1>
+      <p class="mt-5 text-lg text-slate-400">{t('templates.websiteComingSoon.sub')}</p>
+    </div>
+
+    <TemplateTabs current="/templates/website-template" />
+
+    <div class="bento text-center py-20 px-6">
+      <div class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+        <span class="h-2.5 w-2.5 rounded-full bg-brand pulse-dot"></span>
+      </div>
+      <h2 class="font-display text-2xl sm:text-3xl font-bold text-white">
+        {t('templates.websiteComingSoon.heading')}
+      </h2>
+      <p class="mt-3 text-slate-400 max-w-md mx-auto">{t('templates.websiteComingSoon.comingSub')}</p>
+    </div>
+  </div>
+</div>

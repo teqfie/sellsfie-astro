@@ -1,0 +1,28 @@
+---
+import { iconPaths, type IconName } from './icons';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  strokeWidth?: number;
+  class?: string;
+  viewBox?: string;
+}
+
+const { name, size = 18, strokeWidth = 1.75, class: className = '', viewBox = '0 0 24 24' } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox={viewBox}
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden="true"
+  set:html={iconPaths[name]}
+/>

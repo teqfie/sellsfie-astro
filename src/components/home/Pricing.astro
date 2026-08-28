@@ -1,0 +1,173 @@
+---
+import Icon from '../Icon.astro';
+import { useTranslations, toLang, localizePath, formatNumber } from '../../i18n';
+
+const lang = toLang(Astro.currentLocale);
+const { t, tList } = useTranslations(lang);
+
+const SHOP_PANEL_URL = 'https://shop.sellsfie.com';
+const ANNUAL_MULTIPLIER = 0.8;
+
+interface Plan {
+  id?: string;
+  name: string;
+  tagline: string;
+  base: number | null;
+  cta: string;
+  highlight?: boolean;
+  badge?: string;
+  features: string[];
+}
+
+const plans = tList<Plan>('pricing.plans');
+
+const price = (base: number, multiplier: number) =>
+  '৳' + formatNumber(Math.round(base * multiplier), lang);
+
+const discountLabel = lang === 'bn' ? '−২০%' : '−20%';
+---
+
+<section id="pricing" class="py-14 sm:py-24">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center max-w-2xl mx-auto">
+      <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-brand">{t('pricing.eyebrow')}</div>
+      <h2 class="mt-3 font-display text-4xl sm:text-5xl font-extrabold text-white">{t('pricing.title')}</h2>
+      <p class="mt-3 text-slate-400">{t('pricing.sub')}</p>
+
+      <div class="mt-7 inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-1 text-sm" data-billing>
+        <button
+          type="button"
+          data-billing-monthly
+          aria-pressed="true"
+          class="px-4 h-9 rounded-full transition-all bg-white text-[#06080A] font-semibold"
+        >
+          {t('pricing.monthly')}
+        </button>
+        <button
+          type="button"
+          data-billing-annual
+          aria-pressed="false"
+          class="px-4 h-9 rounded-full inline-flex items-center gap-2 transition-all text-slate-400"
+        >
+          {t('pricing.annual')}
+          <span data-billing-badge class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand/15 text-brand">
+            {discountLabel}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {plans.map((plan) => {
+        const isCustom = plan.base == null;
+        const href = isCustom ? localizePath('/demo', lang) : `${SHOP_PANEL_URL}/register`;
+        return (
+          <div
+            class={`relative rounded-2xl p-7 lift transition-all hover:scale-[1.01] ${
+              plan.highlight
+                ? 'bg-gradient-to-b from-[#0F1A12] to-[#0B0F0C] border border-brand/60 ring-brand-glow'
+                : 'bg-[#0B0F14] border border-white/5'
+            }`}
+          >
+            {plan.badge && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-[#04150A] font-bold">
+                <Icon name="Bolt" size={11} strokeWidth={2.5} /> {plan.badge}
+              </div>
+            )}
+            <div class="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">{plan.name}</div>
+            <div class="mt-1 font-display text-xl font-extrabold text-white">{plan.tagline}</div>
+
+            <div class="mt-6 flex items-baseline gap-1.5">
+              <span class="font-display text-5xl font-extrabold text-white">
+                {isCustom ? (
+                  t('pricing.custom')
+                ) : (
+                  <span
+                    data-price
+                    data-monthly={price(plan.base!, 1)}
+                    data-annual={price(plan.base!, ANNUAL_MULTIPLIER)}
+                  >
+                    {price(plan.base!, 1)}
+                  </span>
+                )}
+              </span>
+              {!isCustom && <span class="text-slate-500 text-sm">{t('pricing.perMonth')}</span>}
+            </div>
+
+            <a
+              href={href}
+              class={`mt-6 inline-flex w-full items-center justify-center gap-2 h-11 px-5 rounded-xl font-display font-bold text-sm transition-all hover:scale-[1.02] ${
+                plan.highlight
+                  ? 'btn-brand'
+                  : 'border border-white/10 bg-white/[0.03] text-white hover:bg-white/[0.07]'
+              }`}
+            >
+              {plan.cta} <Icon name="ArrowRight" size={14} strokeWidth={2.25} />
+            </a>
+
+            <div class="mt-6 h-px bg-white/5"></div>
+            <ul class="mt-5 space-y-2.5">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-2.5 text-sm text-slate-300">
+                  <span
+                    class={`mt-0.5 grid place-items-center h-4 w-4 rounded-full shrink-0 ${
+                      plan.highlight ? 'bg-brand text-[#04150A]' : 'bg-white/10 text-slate-300'
+                    }`}
+                  >
+                    <Icon name="Check" size={11} strokeWidth={3} />
+                  </span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+
+    <div class="mt-10 rounded-2xl border border-white/5 bg-white/[0.02] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+      <div class="flex items-center gap-3 text-slate-400">
+        <Icon name="Shield" size={16} class="text-brand" />
+        <span>
+          <span class="text-white font-semibold">{t('pricing.guarantee')}</span> {t('pricing.guaranteeSub')}
+        </span>
+      </div>
+      <a href="#compare" class="text-slate-300 hover:text-white inline-flex items-center gap-1">
+        {t('pricing.compareAll')} <Icon name="ArrowRight" size={13} strokeWidth={2.25} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Billing toggle: both price strings are pre-rendered, so this only swaps text.
+  const monthlyBtn = document.querySelector<HTMLButtonElement>('[data-billing-monthly]');
+  const annualBtn = document.querySelector<HTMLButtonElement>('[data-billing-annual]');
+  const badge = document.querySelector<HTMLElement>('[data-billing-badge]');
+  const prices = document.querySelectorAll<HTMLElement>('[data-price]');
+
+  const setBilling = (annual: boolean) => {
+    monthlyBtn?.setAttribute('aria-pressed', String(!annual));
+    annualBtn?.setAttribute('aria-pressed', String(annual));
+
+    monthlyBtn?.classList.toggle('bg-white', !annual);
+    monthlyBtn?.classList.toggle('text-[#06080A]', !annual);
+    monthlyBtn?.classList.toggle('font-semibold', !annual);
+    monthlyBtn?.classList.toggle('text-slate-400', annual);
+
+    annualBtn?.classList.toggle('btn-brand', annual);
+    annualBtn?.classList.toggle('text-slate-400', !annual);
+
+    badge?.classList.toggle('bg-[#04150A]/15', annual);
+    badge?.classList.toggle('text-[#04150A]', annual);
+    badge?.classList.toggle('bg-brand/15', !annual);
+    badge?.classList.toggle('text-brand', !annual);
+
+    prices.forEach((el) => {
+      el.textContent = (annual ? el.dataset.annual : el.dataset.monthly) ?? '';
+    });
+  };
+
+  monthlyBtn?.addEventListener('click', () => setBilling(false));
+  annualBtn?.addEventListener('click', () => setBilling(true));
+</script>

@@ -1,0 +1,50 @@
+---
+import Icon from '../Icon.astro';
+import type { IconName } from '../icons';
+import { useTranslations, toLang } from '../../i18n';
+
+const lang = toLang(Astro.currentLocale);
+const { t } = useTranslations(lang);
+
+const tags = {
+  Courier: t('trust.tags.Courier'),
+  Logistics: t('trust.tags.Logistics'),
+  Wallet: t('trust.tags.Wallet'),
+  Gateway: t('trust.tags.Gateway'),
+  Ecommerce: 'E-Commerce',
+  Tracking: 'Tracking',
+};
+
+const providers: { name: string; tag: string; icon: IconName }[] = [
+  { name: 'Pathao', tag: tags.Courier, icon: 'Truck' },
+  { name: 'Steadfast', tag: tags.Logistics, icon: 'Box' },
+  { name: 'Bkash', tag: tags.Wallet, icon: 'Wallet' },
+  { name: 'WooCommerce', tag: tags.Ecommerce, icon: 'Cart' },
+  { name: 'SSL Commerze', tag: tags.Gateway, icon: 'Shield' },
+  { name: 'Redex', tag: tags.Courier, icon: 'Truck' },
+  { name: 'Facebook Pixel', tag: tags.Tracking, icon: 'Crosshair' },
+  { name: 'GTM Tracker', tag: tags.Tracking, icon: 'Code' },
+];
+
+/** Doubled so the -50% marquee translate loops seamlessly. */
+const track = [...providers, ...providers];
+---
+
+<section id="integrations" class="py-10 sm:py-16 border-y border-white/5 bg-[#08090C]/60">
+  <div class="max-w-6xl mx-auto px-5">
+    <p class="text-center text-sm text-slate-400">{t('trust.backbonePre')}</p>
+    <div class="mt-6 fade-x overflow-hidden">
+      <div class="marquee-track flex w-max">
+        {track.map((provider) => (
+          <div class="flex items-center gap-3 px-6 py-2.5 mx-2 rounded-xl border border-white/5 bg-white/[0.02] min-w-max">
+            <Icon name={provider.icon} size={18} class="text-slate-500" />
+            <div class="leading-tight">
+              <div class="font-display font-bold text-slate-300/90 tracking-tight">{provider.name}</div>
+              <div class="text-[10px] uppercase tracking-[0.18em] text-slate-600 font-mono">{provider.tag}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

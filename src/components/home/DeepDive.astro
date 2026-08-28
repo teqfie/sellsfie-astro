@@ -1,0 +1,278 @@
+---
+import Icon from '../Icon.astro';
+import type { IconName } from '../icons';
+import { useTranslations, toLang, localizePath, formatNumber } from '../../i18n';
+import { fetchTemplates } from '../../lib/templates';
+
+const lang = toLang(Astro.currentLocale);
+const { t, tList } = useTranslations(lang);
+
+const SHOP_PANEL_URL = 'https://shop.sellsfie.com';
+
+interface Cat {
+  id: string;
+  label: string;
+  count: number;
+  icon: string;
+  title: string;
+  sub: string;
+  items: { h: string; d: string }[];
+}
+
+const cats = tList<Cat>('features.cats');
+
+/* The original's icon map is deliberately non-obvious (cart -> Box, box -> Layer);
+   kept as-is so the rendering matches. */
+const iconFor: Record<string, IconName> = {
+  chart: 'Chart',
+  cart: 'Box',
+  box: 'Layer',
+  spark: 'Spark',
+  wallet: 'Wallet',
+  shield: 'Shield',
+};
+
+const shots: Record<string, { src: string; alt: string }> = {
+  overview: { src: '/assets/screenshots/dashboard-analytics.png', alt: 'Sellsfie analytics dashboard' },
+  sales: { src: '/assets/screenshots/order-management.png', alt: 'Order management screen' },
+  catalog: { src: '/assets/screenshots/product-list.png', alt: 'Product catalog list' },
+  finance: { src: '/assets/screenshots/accounting-overview.png', alt: 'Accounting overview' },
+  admin: { src: '/assets/screenshots/role-management.png', alt: 'Role management' },
+};
+
+// The marketing panel shows a 4-up template grid, resolved at build time.
+const { templates } = await fetchTemplates(1, 4);
+const marketingTiles = templates.length > 0 ? templates.slice(0, 4) : [];
+---
+
+<section id="deep-dive" class="py-14 sm:py-24 border-t border-white/5">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="max-w-2xl">
+      <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-brand">{t('features.eyebrow')}</div>
+      <h2 class="mt-3 font-display text-4xl sm:text-5xl font-extrabold text-white">{t('features.title')}</h2>
+      <p class="mt-4 text-slate-400">{t('features.sub')}</p>
+    </div>
+
+    <div class="mt-10 -mx-5 px-5 overflow-x-auto no-scrollbar">
+      <div class="inline-flex items-center gap-1.5 p-1.5 rounded-2xl border border-white/5 bg-white/[0.02]" role="tablist">
+        {cats.map((cat, index) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${cat.id}`}
+            aria-controls={`panel-${cat.id}`}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            data-tab={cat.id}
+            class={`relative inline-flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
+              index === 0
+                ? 'bg-white/[0.06] text-white shadow-[inset_0_0_0_1px_rgba(56,206,0,0.4)]'
+                : 'text-slate-400 hover:text-white hover:bg-white/[0.03]'
+            }`}
+          >
+            <Icon name={iconFor[cat.icon] ?? 'Circle'} size={14} class={index === 0 ? 'text-brand' : ''} />
+            {cat.label}
+            <span
+              data-tab-count
+              class={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+                index === 0 ? 'bg-brand/15 text-brand' : 'bg-white/5 text-slate-500'
+              }`}
+            >
+              {formatNumber(cat.count, lang)}
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    {cats.map((cat, index) => (
+      <div
+        id={`panel-${cat.id}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${cat.id}`}
+        data-panel={cat.id}
+        hidden={index !== 0}
+        class="mt-10 grid lg:grid-cols-12 gap-8 animate-[fadeIn_.45s_ease]"
+      >
+        <div class="lg:col-span-7">
+          <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-white text-pretty">{cat.title}</h3>
+          <p class="mt-3 text-slate-400 max-w-xl">{cat.sub}</p>
+          <ul class="mt-7 grid sm:grid-cols-2 gap-x-6 gap-y-4">
+            {cat.items.map((item) => (
+              <li class="flex gap-3">
+                <span class="mt-0.5 grid place-items-center h-5 w-5 rounded-md bg-brand/15 text-brand shrink-0">
+                  <Icon name="Check" size={11} strokeWidth={3} />
+                </span>
+                <div class="min-w-0">
+                  <div class="text-white text-sm font-semibold">{item.h}</div>
+                  <div class="text-[12.5px] text-slate-400 mt-0.5">{item.d}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href={`${SHOP_PANEL_URL}/register`}
+              class="btn-brand inline-flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-display font-bold transition-all hover:scale-105 whitespace-nowrap"
+            >
+              {t('features.cta')} <Icon name="ArrowRight" size={14} strokeWidth={2.25} />
+            </a>
+            {cat.id === 'marketing' && (
+              <a
+                href={localizePath('/templates/landing-pages', lang)}
+                class="inline-flex items-center gap-2 h-10 px-4 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] text-slate-200 text-sm font-display font-bold transition-all hover:scale-105 whitespace-nowrap"
+              >
+                {t('templates.viewTemplates')} <Icon name="ArrowRight" size={14} strokeWidth={2.25} />
+              </a>
+            )}
+            <span class="text-xs font-mono text-slate-500">
+              {formatNumber(cat.count, lang)} {t('features.ctaHint')}
+            </span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="bento p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="h-2 w-2 rounded-full bg-[#FF5F57]"></span>
+                <span class="h-2 w-2 rounded-full bg-[#FEBC2E]"></span>
+                <span class="h-2 w-2 rounded-full bg-[#28C840]"></span>
+                <span class="ml-2 text-[10px] font-mono text-slate-500">/{cat.id}</span>
+              </div>
+              <div class="text-[10px] font-mono text-brand inline-flex items-center gap-1.5">
+                <span class="h-1.5 w-1.5 rounded-full bg-brand pulse-dot"></span>{t('hero.live')}
+              </div>
+            </div>
+
+            {cat.id === 'marketing' ? (
+              <div class="rounded-2xl border border-white/5 bg-white/[0.02] p-4 grid grid-cols-2 gap-2">
+                {(marketingTiles.length ? marketingTiles : [null, null, null, null]).map((tile, i) => (
+                  <div class="rounded-xl border border-white/5 bg-white/[0.02] p-2 relative overflow-hidden group">
+                    <div class="aspect-[4/3] rounded-md overflow-hidden bg-gradient-to-br from-brand/15 via-white/5 to-transparent">
+                      {tile?.preview_image_url ? (
+                        <img
+                          src={tile.preview_image_url}
+                          alt={tile.title}
+                          loading="lazy"
+                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div class="w-full h-full grid place-items-center">
+                          <Icon name="Layer" size={20} class="text-brand/70" />
+                        </div>
+                      )}
+                    </div>
+                    <div class="mt-2 flex items-center justify-between">
+                      <span class="text-[10px] font-mono text-slate-400 truncate">
+                        {tile?.title ?? `Template ${i + 1}`}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div
+                class="rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden cursor-pointer group/shot"
+                data-lightbox-open
+                data-src={shots[cat.id]?.src}
+                data-alt={shots[cat.id]?.alt}
+              >
+                <img
+                  src={shots[cat.id]?.src}
+                  alt={shots[cat.id]?.alt}
+                  loading="lazy"
+                  class="w-full h-auto block transition-transform duration-300 group-hover/shot:scale-[1.02]"
+                />
+              </div>
+            )}
+          </div>
+          <div class="mt-3 text-[11px] font-mono text-slate-500 flex items-center gap-2">
+            <Icon name="Key" size={12} class="text-slate-400" />{t('features.hint')}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+{/* Screenshot lightbox */}
+<div
+  data-lightbox
+  hidden
+  class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8 animate-[fadeIn_.2s_ease]"
+>
+  <div class="relative max-w-full max-h-[90vh]" data-lightbox-inner>
+    <button
+      type="button"
+      data-lightbox-close
+      aria-label="Close"
+      class="absolute -top-3 -right-3 h-8 w-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all hover:scale-110 shadow-lg z-10"
+    >
+      <Icon name="Close" size={16} strokeWidth={2.5} />
+    </button>
+    <img data-lightbox-img src="" alt="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain animate-[scaleIn_.25s_ease]" />
+  </div>
+</div>
+
+<script>
+  // --- Workspace tabs ---
+  const tabs = document.querySelectorAll<HTMLButtonElement>('[data-tab]');
+  const panels = document.querySelectorAll<HTMLElement>('[data-panel]');
+
+  const ACTIVE_TAB = ['bg-white/[0.06]', 'text-white', 'shadow-[inset_0_0_0_1px_rgba(56,206,0,0.4)]'];
+  const IDLE_TAB = ['text-slate-400', 'hover:text-white', 'hover:bg-white/[0.03]'];
+
+  const select = (id: string) => {
+    tabs.forEach((tab) => {
+      const on = tab.dataset.tab === id;
+      tab.setAttribute('aria-selected', String(on));
+      ACTIVE_TAB.forEach((c) => tab.classList.toggle(c, on));
+      IDLE_TAB.forEach((c) => tab.classList.toggle(c, !on));
+      tab.querySelector('svg')?.classList.toggle('text-brand', on);
+      const count = tab.querySelector('[data-tab-count]');
+      count?.classList.toggle('bg-brand/15', on);
+      count?.classList.toggle('text-brand', on);
+      count?.classList.toggle('bg-white/5', !on);
+      count?.classList.toggle('text-slate-500', !on);
+    });
+    panels.forEach((panel) => {
+      const on = panel.dataset.panel === id;
+      panel.toggleAttribute('hidden', !on);
+      // Re-trigger the fade-in the original gets from remounting.
+      if (on) {
+        panel.classList.remove('animate-[fadeIn_.45s_ease]');
+        void panel.offsetWidth;
+        panel.classList.add('animate-[fadeIn_.45s_ease]');
+      }
+    });
+  };
+
+  tabs.forEach((tab) => tab.addEventListener('click', () => select(tab.dataset.tab!)));
+
+  // --- Screenshot lightbox ---
+  const lightbox = document.querySelector<HTMLElement>('[data-lightbox]');
+  const lightboxImg = document.querySelector<HTMLImageElement>('[data-lightbox-img]');
+
+  const closeLightbox = () => {
+    lightbox?.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-lightbox-open]').forEach((shot) =>
+    shot.addEventListener('click', () => {
+      if (!lightbox || !lightboxImg) return;
+      lightboxImg.src = shot.dataset.src ?? '';
+      lightboxImg.alt = shot.dataset.alt ?? '';
+      lightbox.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+    }),
+  );
+
+  lightbox?.addEventListener('click', closeLightbox);
+  document.querySelector('[data-lightbox-inner]')?.addEventListener('click', (e) => e.stopPropagation());
+  document.querySelector('[data-lightbox-close]')?.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !lightbox?.hasAttribute('hidden')) closeLightbox();
+  });
+</script>
