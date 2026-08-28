@@ -34,27 +34,6 @@ export default {
           950: '#06080A',
         },
       },
-      keyframes: {
-        marquee: { '0%': { transform: 'translate(0,0)' }, '100%': { transform: 'translate(-50%)' } },
-        blip: {
-          '0%,100%': { opacity: '.35', transform: 'scale(1)' },
-          '50%': { opacity: '1', transform: 'scale(1.18)' },
-        },
-        pulseDot: {
-          '0%': { boxShadow: '0 0 0 0 #38ce0099' },
-          '70%': { boxShadow: '0 0 0 10px #38ce0000' },
-          '100%': { boxShadow: '0 0 0 0 #38ce0000' },
-        },
-        aura: { '0%': { transform: 'rotate(0)' }, '100%': { transform: 'rotate(360deg)' } },
-        fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(6px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        scaleIn: {
-          '0%': { opacity: '0', transform: 'scale(.92)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
-        },
-      },
     },
   },
   plugins: [],
